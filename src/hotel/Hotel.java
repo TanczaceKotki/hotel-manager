@@ -20,6 +20,7 @@ public class Hotel {
                 locators += reservation.locatorsCount;
         }
         return locators;
+        
     }
 	
     void addRoom(Room room) {
