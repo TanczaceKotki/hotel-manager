@@ -21,8 +21,8 @@ public class Interval {
     }
 
     public boolean collides(Interval other) {
-        boolean caseA = end.after(other.getBegin()) && begin.before(other.getEnd());
-        boolean caseB = begin.after(other.getEnd()) && end.before(other.getBegin());
-        return caseA || caseB;
+        boolean caseA = begin.compareTo(other.getBegin()) >= 0 && begin.compareTo(other.getEnd()) >= 0;
+        boolean caseB = end.compareTo(other.getBegin()) <= 0 && end.compareTo(other.getEnd()) <= 0;
+        return !(caseA || caseB);
     }
 }
