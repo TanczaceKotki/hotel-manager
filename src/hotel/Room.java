@@ -6,33 +6,33 @@ import java.util.List;
 class Room {
 
     public enum RoomStandard {HIGH, LOW};
-	
+
     int number;
     int maxLocators;
     float basePricePerDay;
     RoomStandard standard;
     ArrayList<Reservation> reservations;
-	
+
     public Room(int _number, int _maxLocators, float _basePricePerDay, RoomStandard _standard) {
-        
+
         number = _number;
         maxLocators = _maxLocators;
         basePricePerDay = _basePricePerDay;
         standard = _standard;
-        
+
         reservations = new ArrayList<Reservation>();
-        
+
     }
-	
+
     public boolean checkReservation(Interval interval) {
         for(Interval reservation: reservations) {
-        if(reservation.collides(interval))
-            return false;
+            if(reservation.collides(interval))
+                return false;
         }
         return true;
     }
-	
-    //MoÅ¼e wyjÄ…tek? moÅ¼liwe kilka przyczyn niepowodzenia
+
+    //Mo¿e wyj¹tek? mo¿liwe kilka przyczyn niepowodzenia
     //return true - powodzenie
     public boolean addReservation(Reservation reservation) {
         if(checkReservation(reservation)) {
@@ -46,13 +46,13 @@ class Room {
             return false;
         }
     }
-	
+
     public void cancelReservation(Reservation reservation) {
         reservations.remove(reservation);
     }
-    
-    //Powinna sprawdzaÄ‡ sprawdziÄ‡ kolizjÄ™ z dniem dzisiejszym i zwrÃ³ciÄ‡ rezerwacjÄ™
-    //Implementacja tymczasowa - zwraca pierwszÄ… z brzegu
+
+    //Powinna sprawdzaæ sprawdziæ kolizjê z dniem dzisiejszym i zwróciæ rezerwacjê
+    //Implementacja tymczasowa - zwraca pierwsz¹ z brzegu
     public Reservation getCurrentReservation() {
         if(reservations.size() > 0) {
             return reservations.get(0);
