@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Hotel {
 
@@ -11,23 +12,32 @@ public class Hotel {
     }
 
     //Liczba osób aktualnie przyebywaj¹cych w hotelu
-    public int getLocatorsCount() {
-        int locators = 0;
+    public int numOfPeople() {
+        int people = 0;
         for(Room room: rooms) {
             Reservation reservation = room.getCurrentReservation();
             if(reservation != null)
-                locators += reservation.locatorsCount;
+                people += reservation.seats;
         }
-        return locators;
+        return people;
 
     }
 
-    void addRoom(Room room) {
+    public void addRoom(Room room) {
         rooms.add(room);
     }
 
-    void removeRoom(Room room) {
+    public void removeRoom(Room room) {
         rooms.remove(room);
+    }
+
+    public ArrayList<Room> availableRooms(Reservation r) {
+        ArrayList<Room> available = new ArrayList<Room>();
+        for(Room room: rooms) {
+            if(room.seats >= r.seats && room.isAvailable(r))
+                available.add(room);
+        }
+        return available;
     }
 
 
@@ -35,8 +45,8 @@ public class Hotel {
         Hotel hotel = new Hotel();
 
         Room newRoom = new Room(1, 4, 100, Room.RoomStandard.HIGH);
-        Reservation newReservation = new Reservation();
-        newReservation.locatorsCount = 3;
+        Reservation newReservation = new Reservation(new Date(), new Date());
+        newReservation.seats = 3;
         System.out.println(newRoom.addReservation(newReservation));
 
     }

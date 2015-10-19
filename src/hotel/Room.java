@@ -3,45 +3,40 @@ package hotel;
 import java.util.ArrayList;
 import java.util.List;
 
-class Room {
+public class Room {
 
-    public enum RoomStandard {HIGH, LOW};
+    public enum RoomStandard {HIGH, LOW}
 
     int number;
-    int maxLocators;
+    int seats;
     float basePricePerDay;
     RoomStandard standard;
     ArrayList<Reservation> reservations;
 
-    public Room(int _number, int _maxLocators, float _basePricePerDay, RoomStandard _standard) {
+    public Room(int number, int seats, float basePricePerDay, RoomStandard s) {
 
-        number = _number;
-        maxLocators = _maxLocators;
-        basePricePerDay = _basePricePerDay;
-        standard = _standard;
+        this.number = number;
+        this.seats = seats;
+        this.basePricePerDay = basePricePerDay;
+        standard = s;
 
         reservations = new ArrayList<Reservation>();
 
     }
 
-    public boolean checkReservation(Interval interval) {
+    public boolean isAvailable(Interval interval) {
         for(Interval reservation: reservations) {
-            if(reservation.collides(interval))
-                return false;
+            if(!reservation.collides(interval))
+               return true;
         }
-        return true;
+        return false;
     }
 
-    //Mo¿e wyj¹tek? mo¿liwe kilka przyczyn niepowodzenia
     //return true - powodzenie
     public boolean addReservation(Reservation reservation) {
-        if(checkReservation(reservation)) {
-            if(reservation.locatorsCount <= this.maxLocators) {
-                reservations.add(reservation);
-                return true;
-            } else {
-                return false;
-            }
+        if(isAvailable(reservation) && reservation.seats <= seats) {
+            reservations.add(reservation);
+            return true;
         } else {
             return false;
         }
