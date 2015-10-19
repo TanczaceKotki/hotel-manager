@@ -6,7 +6,7 @@ public class Reservation extends Interval {
 
     public int seats;
 
-    Reservation(Date b, Date e) {
+    public Reservation(Date b, Date e) {
         super(b, e);
     }
 }

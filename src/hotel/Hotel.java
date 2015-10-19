@@ -39,16 +39,4 @@ public class Hotel {
         }
         return available;
     }
-
-
-    public static void main(String[] argv) {
-        Hotel hotel = new Hotel();
-
-        Room newRoom = new Room(1, 4, 100, Room.RoomStandard.HIGH);
-        Reservation newReservation = new Reservation(new Date(), new Date());
-        newReservation.seats = 3;
-        System.out.println(newRoom.addReservation(newReservation));
-
-    }
-
 }

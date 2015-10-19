@@ -7,7 +7,7 @@ public class Interval {
     private Date begin;
     private Date end;
 
-    Interval (Date b, Date e)  {
+    public Interval (Date b, Date e)  {
         begin = b;
         end = e;
     }
