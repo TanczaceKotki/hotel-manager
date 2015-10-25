@@ -15,4 +15,5 @@ hs_err_pid*
 *.ipr
 *.iws
 
-.idea/
+#intellij idea files
+/.idea/

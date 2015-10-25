@@ -7,6 +7,7 @@ public class Room {
 
     public enum RoomStandard {HIGH, LOW}
 
+    int id;
     int number;
     int seats;
     float basePricePerDay;
