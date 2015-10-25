@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Hotel {
 
-    ArrayList<Room> rooms;
+    ArrayList<hotel.Room> rooms;
 
     public Hotel() {
         rooms = new ArrayList<Room>();
@@ -39,4 +39,10 @@ public class Hotel {
         }
         return available;
     }
+
+    public static void main(String [ ] args) {
+        System.out.println("main");
+
+    }
+
 }

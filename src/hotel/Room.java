@@ -24,8 +24,9 @@ public class Room {
 
     }
 
+
     public boolean isAvailable(Interval interval) {
-        for(Interval reservation: reservations) {
+        for (Interval reservation: reservations) {
             if(!reservation.collides(interval))
                return true;
         }
