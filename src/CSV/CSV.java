@@ -1,9 +1,7 @@
-package hotel;
+package CSV;
 
-class CSV {
+public class CSV {
     public CSV() {
-
-
         CSVImport i = new CSVImport();
         CSVExport e = new CSVExport();
     }

@@ -1,5 +1,7 @@
-package hotel;
+package CSV;
 
+import hotel.Reservation;
+import hotel.Room;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
