@@ -7,10 +7,25 @@ import java.util.ArrayList;
 
 public class Hotel {
 
-    ArrayList<Room> rooms;
     CSV csv;
+    //Singleton
+    static Hotel hotelInstance;
+    public static Hotel getInstance() throws IOException {
+        if(!(hotelInstance != null)) {
+            hotelInstance = new Hotel();
+        }
+        return hotelInstance;
+
+    }
+
+    ArrayList<hotel.Room> rooms;
+    ArrayList<Discount> seasonDiscounts;
+    ArrayList<Discount> presaleDiscounts;
 
     public Hotel() throws IOException {
+        rooms = new ArrayList<Room>();
+        seasonDiscounts = new ArrayList<Discount>();
+        presaleDiscounts = new ArrayList<Discount>();
         csv = new CSV();
     }
 
@@ -43,9 +58,10 @@ public class Hotel {
         return available;
     }
 
+
     public static void main(String [ ] args) throws IOException {
         System.out.println("main");
-        Hotel hotel = new Hotel();
+        Hotel hotel = Hotel.getInstance();
     }
 
 }
