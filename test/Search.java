@@ -3,6 +3,7 @@ import hotel.Reservation;
 import hotel.Room;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import static org.junit.Assert.*;
 public class Search {
     Hotel hotel;
 
-    Search(){
+    Search() throws IOException {
         hotel = new Hotel();
     }
 

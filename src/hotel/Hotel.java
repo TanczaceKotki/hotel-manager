@@ -1,14 +1,16 @@
 package hotel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Hotel {
 
-    ArrayList<hotel.Room> rooms;
+    ArrayList<Room> rooms;
+    CSV csv;
 
-    public Hotel() {
-        rooms = new ArrayList<Room>();
+    public Hotel() throws IOException {
+        csv = new CSV();
     }
 
     //Liczba osób aktualnie przyebywaj¹cych w hotelu
@@ -40,9 +42,9 @@ public class Hotel {
         return available;
     }
 
-    public static void main(String [ ] args) {
+    public static void main(String [ ] args) throws IOException {
         System.out.println("main");
-
+        Hotel hotel = new Hotel();
     }
 
 }
