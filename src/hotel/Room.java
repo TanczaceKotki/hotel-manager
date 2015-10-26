@@ -7,10 +7,10 @@ public class Room {
 
     public enum RoomStandard {HIGH, LOW}
 
-    int id;
-    int number;
-    int seats;
-    float basePricePerDay;
+    private int id;
+    private int number;
+    private int seats;
+    private float basePricePerDay;
     RoomStandard standard;
     ArrayList<Reservation> reservations;
 
@@ -21,7 +21,7 @@ public class Room {
         this.basePricePerDay = basePricePerDay;
         standard = s;
 
-        reservations = new ArrayList<Reservation>();
+        reservations = new ArrayList<>();
 
     }
 
@@ -58,4 +58,39 @@ public class Room {
         }
     }
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
+    public void setBasePricePerDay(float basePricePerDay) {
+        this.basePricePerDay = basePricePerDay;
+    }
+
+    public RoomStandard getStandard() {
+        return standard;
+    }
+
+    public void setStandard(RoomStandard standard) {
+        this.standard = standard;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public float getBasePricePerDay() {
+        return basePricePerDay;
+    }
 }
