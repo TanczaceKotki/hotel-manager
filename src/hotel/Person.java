@@ -9,24 +9,21 @@ public class Person {
 
     public Person(int id, String firstname,
                   String surname) {
-        this.id = id;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.telephone = "";
-        this.email = "";
+        setValues(id, firstname, surname, "", "");
     }
 
     public Person(int id, String firstname,
                   String surname, String telephone) {
-        this.id = id;
-        this.firstname = firstname;
-        this.surname = surname;
-        this.telephone = telephone;
-        this.email = "";
+        setValues(id, firstname, surname, telephone, "");
     }
 
     public Person(int id, String firstname,
                   String surname, String telephone, String email) {
+        setValues(id, firstname, surname, telephone, email);
+    }
+
+    private void setValues(int id, String firstname,
+                           String surname, String telephone, String email) {
         this.id = id;
         this.firstname = firstname;
         this.surname = surname;
