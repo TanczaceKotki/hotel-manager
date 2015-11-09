@@ -12,7 +12,6 @@ public class Room {
     private int seats;
     private float basePricePerDay;
     RoomStandard standard;
-    ArrayList<Reservation> reservations;
 
     public Room(int number, int seats, float basePricePerDay, RoomStandard s) {
 
@@ -21,41 +20,28 @@ public class Room {
         this.basePricePerDay = basePricePerDay;
         standard = s;
 
-        reservations = new ArrayList<>();
 
     }
 
 
     public boolean isAvailable(Interval interval) {
-        for (Interval reservation: reservations) {
-            if(!reservation.collides(interval))
-               return true;
-        }
+        //
         return false;
     }
 
     //return true - powodzenie
     public boolean addReservation(Reservation reservation) {
-        if(isAvailable(reservation) && reservation.seats <= seats) {
-            reservations.add(reservation);
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public void cancelReservation(Reservation reservation) {
-        reservations.remove(reservation);
+
     }
 
-    //Powinna sprawdzaæ sprawdziæ kolizjê z dniem dzisiejszym i zwróciæ rezerwacjê
-    //Implementacja tymczasowa - zwraca pierwsz¹ z brzegu
+    //Powinna sprawdzac kolizje z dniem dzisiejszym i zwrocic rezerwacje lub null
+    //Implementacja tymczasowa - zwraca pierwsza z brzegu
     public Reservation getCurrentReservation() {
-        if(reservations.size() > 0) {
-            return reservations.get(0);
-        } else {
-            return null;
-        }
+        return null;
     }
 
     public void setNumber(int number) {

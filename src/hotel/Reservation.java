@@ -9,9 +9,9 @@ public class Reservation extends Interval {
     public boolean paid = false;
     public int seats;
 
-    public Reservation(Date b, Date e, int id) {
+    public Reservation(Date b, Date e, Room room) {
         super(b, e);
-        roomId = id;
+        roomId = room.getId();
         creationDate = new Date();
     }
 
