@@ -6,6 +6,8 @@ public class Person {
     private String surname;
     private String telephone;
     private String email;
+    private int discount;
+
 
     public Person(int id, String firstname,
                   String surname) {
@@ -41,6 +43,14 @@ public class Person {
 
     public int getId() {
         return id;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int newDiscount) {
+        discount = newDiscount;
     }
 
     public String getFirstname() {

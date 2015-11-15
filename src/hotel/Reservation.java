@@ -1,24 +1,115 @@
 package hotel;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Reservation extends Interval {
 
-    int roomId;
+    Room room;
     Date creationDate;
-    public boolean paid = false;
+    Date originalBeginDate;
     public int seats;
+    public Person person;
+    float alreadyPaid;
 
-    public Reservation(Date b, Date e, Room room) {
+    public Reservation(Date b, Date e, Room newRoom, Person newPerson) {
         super(b, e);
-        roomId = room.getId();
+        originalBeginDate = b;
+        person = newPerson;
+        room = newRoom;
         creationDate = new Date();
+        alreadyPaid = 0.0f;
+
     }
 
-    public void setAsPaid() {paid = true;}
+    public boolean changeDates(Date b, Date e) {
+        Interval tmp = new Interval(b, e);
+        for(Reservation reservation: Hotel.getInstance().reservations) {
+            if(reservation != this && reservation.collides(tmp))
+                return false;
+        }
+
+        this.begin = b;
+        this.end = e;
+        return true;
+    }
+
+    public int getRoomId() {
+        return room.getId();
+    }
 
     public float calculatePrice() {
-        return 5.0f;
+
+        Calendar from = Calendar.getInstance();
+        from.setTime(begin);
+        Calendar to = Calendar.getInstance();
+        to.setTime(end);
+
+        float basePerDay = room.getBasePricePerDay();
+        float price = 0;
+
+        //Obliczanie ceny bazowej z uwzglêdnieniem zni¿ek sezonowych i liczby osób
+        TimeIgnoringComparator comparator = new TimeIgnoringComparator();
+
+        //Filtrowanie zni¿ek okresowych
+        ArrayList<SeasonalDiscount> collidingDiscounts = new ArrayList<SeasonalDiscount>();
+        for(SeasonalDiscount seasonalDiscount : Hotel.getInstance().seasonalDiscounts) {
+            if(seasonalDiscount.collides(this))
+                collidingDiscounts.add(seasonalDiscount);
+        }
+
+
+        while(comparator.compare(from, to) <= 0) {
+
+            float dayPrice = basePerDay * seats;
+            int sdValue = 0;
+            for(SeasonalDiscount seasonalDiscount : collidingDiscounts) {
+                if(seasonalDiscount.contains(from.getTime())) {
+                    if(seasonalDiscount.getPercentage() > sdValue)
+                        sdValue = seasonalDiscount.getPercentage();
+                }
+
+            }
+
+            price += dayPrice * (float)(100 - sdValue)/100.0f;
+            from.add(Calendar.DATE, 1);
+        }
+
+
+        //Zni¿ka dla sta³ych klientów
+        price -= (float)person.getDiscount()/100.0f * price;
+
+
+        //Zni¿ka EarlyBook
+        Calendar creation = Calendar.getInstance();
+        creation.setTime(creationDate);
+        Calendar discountTo = Calendar.getInstance();
+
+        int ebDiscountValue = 0;
+        for(EarlyBookingDiscount earlyBookingDiscount: Hotel.getInstance().earlyBookingDiscounts) {
+
+            discountTo.setTime(originalBeginDate);
+            discountTo.add(Calendar.MONTH, -earlyBookingDiscount.getMonths());
+
+            if(comparator.compare(creation, discountTo) <= 0) {
+                if(earlyBookingDiscount.getPercentage() > ebDiscountValue)
+                    ebDiscountValue = earlyBookingDiscount.getPercentage();
+            }
+        }
+
+        price -= (float)ebDiscountValue/100.0f * price;
+
+        return price;
     }
+
+    public void pay(float amount) {
+        alreadyPaid += amount;
+    }
+
+    public float leftToPay() {
+        return calculatePrice() - alreadyPaid;
+    }
+
 
 }

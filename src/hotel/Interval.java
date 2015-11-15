@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class Interval {
 
-    private Date begin;
-    private Date end;
+    protected Date begin;
+    protected Date end;
 
     public Interval (Date b, Date e)  {
         begin = b;
@@ -25,4 +25,15 @@ public class Interval {
         boolean caseB = end.compareTo(other.getBegin()) <= 0 && end.compareTo(other.getEnd()) <= 0;
         return !(caseA || caseB);
     }
+
+    public  boolean contains(Date date) {
+
+        if(date.compareTo(begin) >= 0 && date.compareTo(end) <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

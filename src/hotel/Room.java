@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Room {
@@ -23,24 +24,43 @@ public class Room {
 
     }
 
-
     public boolean isAvailable(Interval interval) {
-        //
-        return false;
+        for(Reservation reservation: Hotel.getInstance().reservations) {
+            if(reservation.collides(interval) && reservation.getRoomId() == this.id) {
+                return false;
+            }
+        }
+        return true;
     }
 
     //return true - powodzenie
-    public boolean addReservation(Reservation reservation) {
-        return false;
+    public Reservation addReservation(Date b, Date e, Person newPerson) {
+        Reservation reservation =  new Reservation(b, e, this, newPerson);
+        if(isAvailable(reservation)) {
+            Hotel.getInstance().reservations.add(reservation);
+            return reservation;
+        } else {
+            return null;
+        }
     }
 
-    public void cancelReservation(Reservation reservation) {
-
+    public boolean cancelReservation(Reservation reservation) {
+        //Mo¿na usuwaæ tylko rezerwacje dotycz¹ce tego pokoju
+        if(reservation.getRoomId() == this.id) {
+            Hotel.getInstance().reservations.remove(reservation);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    //Powinna sprawdzac kolizje z dniem dzisiejszym i zwrocic rezerwacje lub null
-    //Implementacja tymczasowa - zwraca pierwsza z brzegu
     public Reservation getCurrentReservation() {
+        Date today = new Date();
+        for(Reservation reservation: Hotel.getInstance().reservations) {
+            if(reservation.getRoomId() == id && reservation.contains(today)) {
+                return reservation;
+            }
+        }
         return null;
     }
 

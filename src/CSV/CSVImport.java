@@ -33,7 +33,8 @@ class CSVImport {
         ArrayList <Reservation> rList = new ArrayList<>();
         CSVParser parser = getParser("archive.csv");
         for(CSVRecord record : parser){
-            Reservation r = new Reservation(new Date(record.get("begin")), new Date(record.get("end"));
+            //0zmieniæ nulle na obiekty klasy Room i klasy Person
+            Reservation r = new Reservation(new Date(record.get("begin")), new Date(record.get("end")), null, null);
             rList.add(r);
         }
         //close the parser
