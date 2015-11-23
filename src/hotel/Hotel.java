@@ -1,16 +1,12 @@
 package hotel;
 
-import CSV.CSV;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class Hotel {
 
-    CSV csv;
+    DataManager dataManager;
     //Singleton
     static Hotel hotelInstance;
     public static Hotel getInstance() {
@@ -35,10 +31,10 @@ public class Hotel {
         reservations = new ArrayList<>();
         seasonalDiscounts = new ArrayList<>();
         earlyBookingDiscounts = new ArrayList<>();
-        csv = new CSV();
+        dataManager = new DataManager();
     }
 
-    //Liczba os�b aktualnie przyebywaj�cych w hotelu
+    // current num of accommodated people
     public int numOfPeople() {
         int people = 0;
         Date today = new Date();

@@ -13,7 +13,7 @@ public class Reservation extends Interval {
     public Person person;
     float alreadyPaid;
 
-//    where are seats?
+//  TODO: where are seats?
     public Reservation(Date b, Date e, Room newRoom, Person newPerson) {
         super(b, e);
         originalBeginDate = b;
@@ -23,11 +23,6 @@ public class Reservation extends Interval {
         alreadyPaid = 0.0f;
 
     }
-//    public Reservation(Date b, Date e, int seats) {
-//        super(b, e);
-//        roomId = room.getId();
-//        creationDate = new Date();
-//    }
 
     public boolean changeDates(Date b, Date e) {
         Interval tmp = new Interval(b, e);
