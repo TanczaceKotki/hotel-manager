@@ -1,18 +1,15 @@
 package hotel;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Room {
 
     public enum RoomStandard {HIGH, LOW}
 
-    private int id;
-    private int number;
-    private int seats;
-    private float basePricePerDay;
-    RoomStandard standard;
+    private int number; //{get}
+    private int seats; //{get, set}
+    private float basePricePerDay; //{get, set}
+    RoomStandard standard; //{get, set}
 
     public Room(int number, int seats, float basePricePerDay, RoomStandard s) {
 
@@ -21,12 +18,11 @@ public class Room {
         this.basePricePerDay = basePricePerDay;
         standard = s;
 
-
     }
 
     public boolean isAvailable(Interval interval) {
         for(Reservation reservation: Hotel.getInstance().reservations) {
-            if(reservation.collides(interval) && reservation.getRoomId() == this.id) {
+            if(reservation.collides(interval) && reservation.getRoomId() == this.number) {
                 return false;
             }
         }
@@ -45,8 +41,8 @@ public class Room {
     }
 
     public boolean cancelReservation(Reservation reservation) {
-        //Mo¿na usuwaæ tylko rezerwacje dotycz¹ce tego pokoju
-        if(reservation.getRoomId() == this.id) {
+        //Moï¿½na usuwaï¿½ tylko rezerwacje dotyczï¿½ce tego pokoju
+        if(reservation.getRoomId() == this.number) {
             Hotel.getInstance().reservations.remove(reservation);
             return true;
         } else {
@@ -57,35 +53,23 @@ public class Room {
     public Reservation getCurrentReservation() {
         Date today = new Date();
         for(Reservation reservation: Hotel.getInstance().reservations) {
-            if(reservation.getRoomId() == id && reservation.contains(today)) {
+            if(reservation.getRoomId() == number && reservation.contains(today)) {
                 return reservation;
             }
         }
         return null;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void setSeats(int seats) {
+    void setSeats(int seats) {
         this.seats = seats;
     }
 
-    public void setBasePricePerDay(float basePricePerDay) {
+    void setBasePricePerDay(float basePricePerDay) {
         this.basePricePerDay = basePricePerDay;
     }
 
-    public RoomStandard getStandard() {
-        return standard;
-    }
-
-    public void setStandard(RoomStandard standard) {
+    void setStandard(RoomStandard standard) {
         this.standard = standard;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getNumber() {
@@ -98,5 +82,9 @@ public class Room {
 
     public float getBasePricePerDay() {
         return basePricePerDay;
+    }
+
+    public RoomStandard getStandard() {
+        return standard;
     }
 }

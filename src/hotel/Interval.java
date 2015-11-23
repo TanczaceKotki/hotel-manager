@@ -28,11 +28,7 @@ public class Interval {
 
     public  boolean contains(Date date) {
 
-        if(date.compareTo(begin) >= 0 && date.compareTo(end) <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return date.compareTo(begin) >= 0 && date.compareTo(end) <= 0;
 
     }
 

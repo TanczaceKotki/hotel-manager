@@ -14,7 +14,7 @@ public class Hotel {
     //Singleton
     static Hotel hotelInstance;
     public static Hotel getInstance() {
-        if(!(hotelInstance != null)) {
+        if(hotelInstance == null) {
             try {
                 hotelInstance = new Hotel();
             } catch(IOException e) {
@@ -25,20 +25,20 @@ public class Hotel {
 
     }
 
-    ArrayList<hotel.Room> rooms;
-    ArrayList<SeasonalDiscount> seasonalDiscounts;
-    ArrayList<EarlyBookingDiscount> earlyBookingDiscounts;
-    ArrayList<Reservation> reservations;
+    public ArrayList<hotel.Room> rooms;
+    public ArrayList<SeasonalDiscount> seasonalDiscounts;
+    public ArrayList<EarlyBookingDiscount> earlyBookingDiscounts;
+    public ArrayList<Reservation> reservations;
 
     public Hotel() throws IOException {
-        rooms = new ArrayList<Room>();
-        reservations = new ArrayList<Reservation>();
-        seasonalDiscounts = new ArrayList<SeasonalDiscount>();
-        earlyBookingDiscounts = new ArrayList<EarlyBookingDiscount>();
+        rooms = new ArrayList<>();
+        reservations = new ArrayList<>();
+        seasonalDiscounts = new ArrayList<>();
+        earlyBookingDiscounts = new ArrayList<>();
         csv = new CSV();
     }
 
-    //Liczba osób aktualnie przyebywaj¹cych w hotelu
+    //Liczba osï¿½b aktualnie przyebywajï¿½cych w hotelu
     public int numOfPeople() {
         int people = 0;
         Date today = new Date();
@@ -60,49 +60,11 @@ public class Hotel {
     }
 
     public ArrayList<Room> availableRooms(Reservation r) {
-        ArrayList<Room> available = new ArrayList<Room>();
+        ArrayList<Room> available = new ArrayList<>();
         for(Room room: rooms) {
             if(room.getSeats() >= r.seats && room.isAvailable(r))
                 available.add(room);
         }
         return available;
     }
-
-
-    public static void main(String [ ] args) throws IOException {
-
-        Hotel hotel = Hotel.getInstance();
-
-        //Mo¿na wykorzystaæ ten kod jako testowy
-        //Docelowo zapisywane do CSV ----------------------------------------------------------
-        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(1, 5));
-        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(3, 10));
-        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(6, 15));
-
-        //Zni¿ka na Listopad
-        Calendar cal = Calendar.getInstance();
-        cal.set(2015, 10, 1);
-        Date discountBegin = cal.getTime();
-        cal.set(2015, 11, 1);
-        Date discountEnd = cal.getTime();
-        hotel.seasonalDiscounts.add(new SeasonalDiscount(discountBegin, discountEnd, 10));
-        //-------------------------------------------------------------------------------------
-
-        Room room = new Room(1, 4, 80, Room.RoomStandard.HIGH);
-        hotel.addRoom(room);
-        Person examplePerson = new Person(0, "Jan", "Kowalski");
-        examplePerson.setDiscount(20);
-
-        Calendar from =  Calendar.getInstance();
-        from.set(2015, 10, 1);
-        Calendar to =  Calendar.getInstance();
-        to.set(2015, 10, 10);
-
-        Reservation reservation = room.addReservation(from.getTime(), to.getTime(), examplePerson);
-        reservation.seats = 2;
-
-        System.out.println(reservation.calculatePrice());
-
-    }
-
 }

@@ -13,6 +13,7 @@ public class Reservation extends Interval {
     public Person person;
     float alreadyPaid;
 
+//    where are seats?
     public Reservation(Date b, Date e, Room newRoom, Person newPerson) {
         super(b, e);
         originalBeginDate = b;
@@ -22,6 +23,11 @@ public class Reservation extends Interval {
         alreadyPaid = 0.0f;
 
     }
+//    public Reservation(Date b, Date e, int seats) {
+//        super(b, e);
+//        roomId = room.getId();
+//        creationDate = new Date();
+//    }
 
     public boolean changeDates(Date b, Date e) {
         Interval tmp = new Interval(b, e);
@@ -36,7 +42,7 @@ public class Reservation extends Interval {
     }
 
     public int getRoomId() {
-        return room.getId();
+        return room.getNumber();
     }
 
     public float calculatePrice() {
@@ -49,11 +55,11 @@ public class Reservation extends Interval {
         float basePerDay = room.getBasePricePerDay();
         float price = 0;
 
-        //Obliczanie ceny bazowej z uwzglêdnieniem zni¿ek sezonowych i liczby osób
+        //Obliczanie ceny bazowej z uwzglï¿½dnieniem zniï¿½ek sezonowych i liczby osï¿½b
         TimeIgnoringComparator comparator = new TimeIgnoringComparator();
 
-        //Filtrowanie zni¿ek okresowych
-        ArrayList<SeasonalDiscount> collidingDiscounts = new ArrayList<SeasonalDiscount>();
+        //Filtrowanie zniï¿½ek okresowych
+        ArrayList<SeasonalDiscount> collidingDiscounts = new ArrayList<>();
         for(SeasonalDiscount seasonalDiscount : Hotel.getInstance().seasonalDiscounts) {
             if(seasonalDiscount.collides(this))
                 collidingDiscounts.add(seasonalDiscount);
@@ -77,11 +83,11 @@ public class Reservation extends Interval {
         }
 
 
-        //Zni¿ka dla sta³ych klientów
+        //Zniï¿½ka dla staï¿½ych klientï¿½w
         price -= (float)person.getDiscount()/100.0f * price;
 
 
-        //Zni¿ka EarlyBook
+        //Zniï¿½ka EarlyBook
         Calendar creation = Calendar.getInstance();
         creation.setTime(creationDate);
         Calendar discountTo = Calendar.getInstance();
