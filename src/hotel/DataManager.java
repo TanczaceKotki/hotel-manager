@@ -1,16 +1,13 @@
 package hotel;
-
-import CSV.CSVExport;
-import CSV.CSVImport;
+import CSV.CSV;
 
 public class DataManager {
-    CSVImport csvImport;
-    CSVExport csvExport;
+    CSV csv;
 
     DataManager() {
-        csvImport = new CSVImport();
-        csvExport = new CSVExport();
+        csv = new CSV();
     }
+
 
 
 }

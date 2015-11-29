@@ -21,7 +21,7 @@ public class Hotel {
 
     }
 
-    public ArrayList<hotel.Room> rooms;
+    public ArrayList<Room> rooms;
     public ArrayList<SeasonalDiscount> seasonalDiscounts;
     public ArrayList<EarlyBookingDiscount> earlyBookingDiscounts;
     public ArrayList<Reservation> reservations;
