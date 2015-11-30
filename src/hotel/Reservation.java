@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class Reservation extends Interval {
 
+    private int id;
     Room room;
     Date creationDate;
     Date originalBeginDate;
@@ -13,14 +14,26 @@ public class Reservation extends Interval {
     public Person person;
     float alreadyPaid;
 
-//  TODO: where are seats?
-    public Reservation(Date b, Date e, Room newRoom, Person newPerson) {
+//  TODO: where are seats? where is id? Optimize constructors
+    public Reservation(Date b, Date e, Room room, Person person) {
         super(b, e);
         originalBeginDate = b;
-        person = newPerson;
-        room = newRoom;
+        this.person = person;
+        this.room = room;
         creationDate = new Date();
         alreadyPaid = 0.0f;
+
+    }
+
+    public Reservation(int id, Date b, Date e, Room room, Person person, int seats) {
+        super(b, e);
+        this.id = id;
+        originalBeginDate = b;
+        this.person = person;
+        this.room = room;
+        creationDate = new Date();
+        alreadyPaid = 0.0f;
+        this.seats = seats;
 
     }
 
@@ -36,9 +49,20 @@ public class Reservation extends Interval {
         return true;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public int getRoomId() {
         return room.getNumber();
     }
+    public int getPersonId() {
+        return person.getId();
+    }
+    public int getSeats() {
+        return seats;
+    }
+
 
     public float calculatePrice() {
 

@@ -12,11 +12,11 @@ public class Interval {
         end = e;
     }
 
-    Date getBegin() {
+    public Date getBegin() {
         return begin;
     }
 
-    Date getEnd() {
+    public Date getEnd() {
         return end;
     }
 
