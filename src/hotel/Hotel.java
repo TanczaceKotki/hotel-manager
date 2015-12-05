@@ -1,7 +1,10 @@
 package hotel;
 
+import hotel.exceptions.RoomAlreadyExistsException;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Hotel {
@@ -21,20 +24,40 @@ public class Hotel {
 
     }
 
-    public ArrayList<Room> rooms;
+    public ArrayList<hotel.Room> rooms;
     public ArrayList<SeasonalDiscount> seasonalDiscounts;
     public ArrayList<EarlyBookingDiscount> earlyBookingDiscounts;
     public ArrayList<Reservation> reservations;
+    public ArrayList<Person> clients;
+
+
+
 
     public Hotel() throws IOException {
-        rooms = new ArrayList<>();
-        reservations = new ArrayList<>();
-        seasonalDiscounts = new ArrayList<>();
-        earlyBookingDiscounts = new ArrayList<>();
+        rooms = new ArrayList<Room>();
+        reservations = new ArrayList<Reservation>();
+        seasonalDiscounts = new ArrayList<SeasonalDiscount>();
+        earlyBookingDiscounts = new ArrayList<EarlyBookingDiscount>();
+        clients = new ArrayList<Person>();
         dataManager = new DataManager();
+        initializeUserInterface();
+
     }
 
     // current num of accommodated people
+    //Interfejs uzytkownika
+    ConsoleInterface userInterface;
+
+    void initializeUserInterface() {
+        userInterface = new ConsoleInterface();
+
+    }
+
+
+
+    //Zarz¹dzanie klientami
+
+    //Liczba osób aktualnie przyebywaj¹cych w hotelu
     public int numOfPeople() {
         int people = 0;
         Date today = new Date();
@@ -47,20 +70,74 @@ public class Hotel {
 
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
+    //Zarz¹dzanie pokojami
+    public void addRoom(Room room) throws RoomAlreadyExistsException{
+        if(rooms.stream().filter(t -> t.getNumber() == room.getNumber()).count() == 0) {
+            rooms.add(room);
+        } else {
+            throw new RoomAlreadyExistsException();
+        }
     }
 
     public void removeRoom(Room room) {
         rooms.remove(room);
     }
 
-    public ArrayList<Room> availableRooms(Reservation r) {
+    public ArrayList<Room> availableRooms(Interval interval) {
         ArrayList<Room> available = new ArrayList<>();
         for(Room room: rooms) {
-            if(room.getSeats() >= r.seats && room.isAvailable(r))
+            if(room.isAvailable(interval))
                 available.add(room);
         }
         return available;
     }
+
+    public ArrayList<Room> findRooms(Interval availableIn, int seats, float maxPrice, Room.RoomStandard standard) {
+        ArrayList<Room> available = availableRooms(availableIn);
+        ArrayList<Room> found = new ArrayList<Room>();
+
+
+        for(Room room: available) {
+
+            if(room.getSeats() >= seats && standard == room.standard && room.getBasePricePerDay() <= maxPrice) {
+                found.add(room);
+            }
+        }
+        return found;
+    }
+
+    public Room getRoomByNumber(int number) {
+        for(Room room: rooms) {
+            if(room.getNumber() == number) {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    public static void main(String [ ] args) throws IOException {
+
+        Hotel hotel = Hotel.getInstance();
+
+        //Mo¿na wykorzystaæ ten kod jako testowy
+        //Docelowo zapisywane do CSV ----------------------------------------------------------
+        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(1, 5));
+        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(3, 10));
+        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(6, 15));
+
+        //Zni¿ka na Listopad
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 10, 1);
+        Date discountBegin = cal.getTime();
+        cal.set(2015, 11, 1);
+        Date discountEnd = cal.getTime();
+        hotel.seasonalDiscounts.add(new SeasonalDiscount(discountBegin, discountEnd, 10));
+        //-------------------------------------------------------------------------------------
+
+
+        //Uruchamianie interfejsu
+        hotel.userInterface.start();
+
+    }
+
 }

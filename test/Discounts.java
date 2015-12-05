@@ -28,8 +28,12 @@ public class Discounts {
         hotel.seasonalDiscounts.add(new SeasonalDiscount(discountBegin, discountEnd, 10));
 
         hotel.Room room = new Room(1, 4, 80, Room.RoomStandard.HIGH);
-        hotel.addRoom(room);
+        try {
+            hotel.addRoom(room);
+        } catch (Exception e) {}
+
         Person examplePerson = new Person(0, "Jan", "Kowalski");
+
         examplePerson.setDiscount(20);
 
         Calendar from =  Calendar.getInstance();

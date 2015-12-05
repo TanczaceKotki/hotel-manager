@@ -14,6 +14,11 @@ public class Reservation extends Interval {
     public Person person;
     float alreadyPaid;
 
+    static int generateId() {
+        return (int) (System.currentTimeMillis() / 1000L);
+    }
+
+    /*
 //  TODO: where are seats? where is id? Optimize constructors
     public Reservation(Date b, Date e, Room room, Person person) {
         super(b, e);
@@ -24,10 +29,15 @@ public class Reservation extends Interval {
         alreadyPaid = 0.0f;
 
     }
+    */
 
     public Reservation(int id, Date b, Date e, Room room, Person person, int seats) {
         super(b, e);
-        this.id = id;
+        if(id == 0) {
+            this.id = id;
+        } else {
+            this.id = generateId();
+        }
         originalBeginDate = b;
         this.person = person;
         this.room = room;
@@ -103,8 +113,9 @@ public class Reservation extends Interval {
 
 
         //Zni�ka dla sta�ych klient�w
-        price -= (float)person.getDiscount()/100.0f * price;
-
+        if(person != null) {
+            price -= (float) person.getDiscount() / 100.0f * price;
+        }
 
         //Zni�ka EarlyBook
         Calendar creation = Calendar.getInstance();

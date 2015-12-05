@@ -1,6 +1,7 @@
 package hotel;
 
 public class Person {
+
     private int id;
     private String firstname;
     private String surname;

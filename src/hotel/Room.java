@@ -1,5 +1,7 @@
 package hotel;
 
+import hotel.exceptions.RoomAlreadyExistsException;
+
 import java.util.Date;
 
 public class Room {
@@ -29,15 +31,34 @@ public class Room {
         return true;
     }
 
+    public void changeNumber(int newNumber) throws RoomAlreadyExistsException {
+        Hotel hotel = Hotel.getInstance();
+        if(hotel.getRoomByNumber(newNumber) != null) {
+            throw new RoomAlreadyExistsException();
+        } else {
+            number = newNumber;
+        }
+    }
+
     //return true - powodzenie
     public Reservation addReservation(Date b, Date e, Person newPerson) {
-        Reservation reservation =  new Reservation(b, e, this, newPerson);
+        //0 - wygeneruj nowe id
+        Reservation reservation =  new Reservation(0, b, e, this, newPerson, getSeats());
         if(isAvailable(reservation)) {
             Hotel.getInstance().reservations.add(reservation);
             return reservation;
         } else {
             return null;
         }
+    }
+
+    public String toString() {
+        String repr = "Room number: "+number+"\n";
+        repr += "Seats: "+seats+"\n";
+        repr += "Standard: "+standard.toString()+"\n";
+        repr += "Price per day: "+basePricePerDay;
+
+        return repr;
     }
 
     public boolean cancelReservation(Reservation reservation) {
