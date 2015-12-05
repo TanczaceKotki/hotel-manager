@@ -247,3 +247,19 @@ class ChangeRoomNumber extends RoomCommand {
     }
 
 }
+
+
+class GetResidetsCount extends Command {
+
+    public GetResidetsCount(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+        Hotel hotel = Hotel.getInstance();
+        System.out.println("Current residents: " + hotel.numOfPeople());
+
+    }
+
+}

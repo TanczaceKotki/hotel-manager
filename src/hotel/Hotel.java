@@ -115,6 +115,14 @@ public class Hotel {
         return null;
     }
 
+    public Reservation getReservationById(int id) {
+        for(Reservation reservation: reservations) {
+            if(reservation.getId() == id) {
+                return reservation;
+            }
+        }
+        return null;
+    }
     public static void main(String [ ] args) throws IOException {
 
         Hotel hotel = Hotel.getInstance();

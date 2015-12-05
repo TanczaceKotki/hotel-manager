@@ -78,7 +78,7 @@ public class ConsoleInterface {
         commands.put("remove room", new RemoveRoom(commandReader));
         commands.put("change room number", new ChangeRoomNumber(commandReader));
 
-
+        commands.put("get residents count", new GetResidetsCount(commandReader));
     }
 
 

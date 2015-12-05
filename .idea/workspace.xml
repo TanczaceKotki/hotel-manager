@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03a02752-4977-4a40-8b52-de4d73efbd29" name="Default" comment="CSV data types implemented">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/Commands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/exceptions/DateFormatException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/exceptions/FloatExpectedException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/exceptions/IntExpectedException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/exceptions/RoomAlreadyExistsException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/exceptions/UndefinedBooleanException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Discounts.java" afterPath="$PROJECT_DIR$/test/Discounts.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Commands.java" afterPath="$PROJECT_DIR$/src/hotel/Commands.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" afterPath="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Hotel.java" afterPath="$PROJECT_DIR$/src/hotel/Hotel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Person.java" afterPath="$PROJECT_DIR$/src/hotel/Person.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Reservation.java" afterPath="$PROJECT_DIR$/src/hotel/Reservation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Room.java" afterPath="$PROJECT_DIR$/src/hotel/Room.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/TestSuite.java" afterPath="$PROJECT_DIR$/test/TestSuite.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hotel.iws" />
@@ -38,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConsoleInterface.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ConsoleInterface.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hotel/ConsoleInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.7389163">
+              <caret line="84" column="25" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#419#420#0" expanded="true" />
@@ -54,17 +44,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commands.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Commands.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hotel/Commands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9162561">
-              <caret line="150" column="27" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="261" column="0" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4720#4721#0" expanded="true" />
                 <element signature="e#4756#4757#0" expanded="true" />
                 <element signature="e#5825#5826#0" expanded="true" />
                 <element signature="e#5861#5862#0" expanded="true" />
+                <element signature="e#6623#6624#0" expanded="true" />
+                <element signature="e#6659#6660#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,7 +66,7 @@
         <entry file="file://$PROJECT_DIR$/src/hotel/Hotel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="28" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="28" />
+              <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2669#2675#0" expanded="true" />
@@ -193,12 +185,12 @@
         <option value="$PROJECT_DIR$/src/hotel/exceptions/IntExpectedException.java" />
         <option value="$PROJECT_DIR$/src/hotel/Reservation.java" />
         <option value="$PROJECT_DIR$/src/hotel/exceptions/UndefinedBooleanException.java" />
-        <option value="$PROJECT_DIR$/src/hotel/Hotel.java" />
         <option value="$PROJECT_DIR$/src/hotel/exceptions/DateFormatException.java" />
         <option value="$PROJECT_DIR$/src/hotel/exceptions/RoomAlreadyExistsException.java" />
         <option value="$PROJECT_DIR$/src/hotel/Room.java" />
-        <option value="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" />
+        <option value="$PROJECT_DIR$/src/hotel/Hotel.java" />
         <option value="$PROJECT_DIR$/src/hotel/Commands.java" />
+        <option value="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" />
       </list>
     </option>
   </component>
@@ -607,7 +599,13 @@
       <option name="project" value="LOCAL" />
       <updated>1445802189921</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="CSV data types implemented">
+      <created>1449287587619</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1449287587619</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1085,17 +1083,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hotel/Hotel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="28" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2669#2675#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/hotel/Room.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1121,30 +1108,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hotel/ConsoleInterface.java">
+    <entry file="file://$PROJECT_DIR$/src/hotel/Hotel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <caret line="114" column="13" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-            <element signature="e#469#470#0" expanded="true" />
-            <element signature="e#1522#1523#0" expanded="true" />
-            <element signature="e#1555#1556#0" expanded="true" />
+            <element signature="e#2669#2675#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hotel/Commands.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9162561">
-          <caret line="150" column="27" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="261" column="0" selection-start-line="261" selection-start-column="0" selection-end-line="261" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4720#4721#0" expanded="true" />
             <element signature="e#4756#4757#0" expanded="true" />
             <element signature="e#5825#5826#0" expanded="true" />
             <element signature="e#5861#5862#0" expanded="true" />
+            <element signature="e#6623#6624#0" expanded="true" />
+            <element signature="e#6659#6660#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hotel/ConsoleInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7389163">
+          <caret line="84" column="25" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#419#420#0" expanded="true" />
+            <element signature="e#469#470#0" expanded="true" />
+            <element signature="e#1522#1523#0" expanded="true" />
+            <element signature="e#1555#1556#0" expanded="true" />
           </folding>
         </state>
       </provider>
