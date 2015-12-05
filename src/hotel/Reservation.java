@@ -18,19 +18,6 @@ public class Reservation extends Interval {
         return (int) (System.currentTimeMillis() / 1000L);
     }
 
-    /*
-//  TODO: where are seats? where is id? Optimize constructors
-    public Reservation(Date b, Date e, Room room, Person person) {
-        super(b, e);
-        originalBeginDate = b;
-        this.person = person;
-        this.room = room;
-        creationDate = new Date();
-        alreadyPaid = 0.0f;
-
-    }
-    */
-
     public Reservation(int id, Date b, Date e, Room room, Person person, int seats) {
         super(b, e);
         if(id == 0) {
@@ -59,7 +46,7 @@ public class Reservation extends Interval {
         return true;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -84,10 +71,10 @@ public class Reservation extends Interval {
         float basePerDay = room.getBasePricePerDay();
         float price = 0;
 
-        //Obliczanie ceny bazowej z uwzgl�dnieniem zni�ek sezonowych i liczby os�b
+        // Price calculator - base price plus seasons, seats bonus costs
         TimeIgnoringComparator comparator = new TimeIgnoringComparator();
 
-        //Filtrowanie zni�ek okresowych
+        // Seasons discounts filter
         ArrayList<SeasonalDiscount> collidingDiscounts = new ArrayList<>();
         for(SeasonalDiscount seasonalDiscount : Hotel.getInstance().seasonalDiscounts) {
             if(seasonalDiscount.collides(this))
@@ -112,12 +99,12 @@ public class Reservation extends Interval {
         }
 
 
-        //Zni�ka dla sta�ych klient�w
+        // Discount for regular customers
         if(person != null) {
             price -= (float) person.getDiscount() / 100.0f * price;
         }
 
-        //Zni�ka EarlyBook
+        // EarlyBook discount
         Calendar creation = Calendar.getInstance();
         creation.setTime(creationDate);
         Calendar discountTo = Calendar.getInstance();
