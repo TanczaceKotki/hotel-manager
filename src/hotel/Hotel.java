@@ -55,7 +55,7 @@ public class Hotel {
 
 
 
-    //Zarz¹dzanie klientami
+    //Customers ------------------------------------------------
 
     //Liczba osób aktualnie przyebywaj¹cych w hotelu
     public int numOfPeople() {
@@ -70,7 +70,41 @@ public class Hotel {
 
     }
 
-    //Zarz¹dzanie pokojami
+    public void addClient(Person client) {
+        clients.add(client);
+    }
+
+    public void removeClient(Person client) {
+        clients.remove(client);
+    }
+
+    public ArrayList<Person> findClients(String firstname, String surname, String phoneNumber, String email) {
+        ArrayList<Person> results = new ArrayList<Person>();
+        String pn = phoneNumber;
+        pn.replaceAll("\\s+","");
+
+        for(Person client : clients) {
+            boolean nameCondition = client.getFirstname().contains(firstname);
+            boolean surnameCondition = client.getSurname().contains(surname);
+            boolean phoneCondition = client.getTelephone().contains(pn);
+            boolean emailCondition = client.getEmail().contains(email);
+
+            if(nameCondition && surnameCondition && phoneCondition && emailCondition)
+                results.add(client);
+        }
+        return results;
+    }
+
+    public Person getClientById(int id) {
+        for(Person client : clients) {
+            if(client.getId() == id)
+                return client;
+        }
+        return null;
+    }
+
+
+    //Rooms ------------------------------------------------
     public void addRoom(Room room) throws RoomAlreadyExistsException{
         if(rooms.stream().filter(t -> t.getNumber() == room.getNumber()).count() == 0) {
             rooms.add(room);
@@ -98,8 +132,12 @@ public class Hotel {
 
 
         for(Room room: available) {
+            boolean standardCondition = true;
+            if(standard != null) {
+                standardCondition = (standard == room.standard);
+            }
 
-            if(room.getSeats() >= seats && standard == room.standard && room.getBasePricePerDay() <= maxPrice) {
+            if(room.getSeats() >= seats && standardCondition && room.getBasePricePerDay() <= maxPrice) {
                 found.add(room);
             }
         }
@@ -115,6 +153,7 @@ public class Hotel {
         return null;
     }
 
+    //Reservations ------------------------------------------------
     public Reservation getReservationById(int id) {
         for(Reservation reservation: reservations) {
             if(reservation.getId() == id) {
@@ -123,6 +162,31 @@ public class Hotel {
         }
         return null;
     }
+
+
+    //Discounts ------------------------------------------------
+    public void addSeasonalDiscount(SeasonalDiscount sd) {
+        seasonalDiscounts.add(sd);
+    }
+    public void removeSeasonalDiscount(int index) {
+        seasonalDiscounts.remove(index);
+    }
+
+    public String[] getSeasonalDiscountInfo() {
+        String[] info = new String[seasonalDiscounts.size()];
+        for(int i=0; i< seasonalDiscounts.size(); i++) {
+            info[i] = "Id: "+i+"\n"+  seasonalDiscounts.get(i).toString();
+        }
+        return info;
+    }
+
+    public void addEarlyBookDiscount(EarlyBookingDiscount ebd) {
+        earlyBookingDiscounts.add(ebd);
+    }
+    public void removeEarlyBookDiscount(EarlyBookingDiscount ebd) {
+        earlyBookingDiscounts.remove(ebd);
+    }
+
     public static void main(String [ ] args) throws IOException {
 
         Hotel hotel = Hotel.getInstance();

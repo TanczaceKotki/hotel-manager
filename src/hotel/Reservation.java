@@ -18,6 +18,7 @@ public class Reservation extends Interval {
         return (int) (System.currentTimeMillis() / 1000L);
     }
 
+
     public Reservation(int id, Date b, Date e, Room room, Person person, int seats) {
         super(b, e);
         if(id == 0) {

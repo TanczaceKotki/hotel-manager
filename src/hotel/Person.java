@@ -9,6 +9,9 @@ public class Person {
     private String email;
     private int discount;
 
+    static int generateId() {
+        return (int) (System.currentTimeMillis() / 1000L);
+    }
 
     public Person(int id, String firstname,
                   String surname) {
@@ -32,10 +35,29 @@ public class Person {
         this.surname = surname;
         this.telephone = telephone;
         this.email = email;
+
+    }
+
+    public String toString() {
+        String repr = "ID: "+ id;
+        repr += "\nFirst name: " + firstname;
+        repr += "\nLast name: " + surname;
+        repr += "\nPhone number: " + telephone;
+        repr += "\nE-mail: " + email;
+        return repr;
+    }
+
+    public void setFirstname(String name) {
+        firstname = name;
+    }
+
+    public void setSurname(String sName) {
+        surname = sName;
     }
 
     public void setTel(String tel) {
         this.telephone = tel;
+        tel.replaceAll("\\s+","");
     }
 
     public void setEmail(String email) {
@@ -50,9 +72,7 @@ public class Person {
         return discount;
     }
 
-    public void setDiscount(int newDiscount) {
-        discount = newDiscount;
-    }
+    public void setDiscount(int newDiscount) {discount = newDiscount;}
 
     public String getFirstname() {
         return firstname;

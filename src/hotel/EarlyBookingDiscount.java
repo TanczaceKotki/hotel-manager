@@ -27,4 +27,11 @@ public class EarlyBookingDiscount {
         percentage = newPercentage;
     }
 
+    public String toString() {
+        String repr = "Months: " + months;
+        repr += "\nPercentage: " + percentage;
+        return repr;
+    }
+
+
 }

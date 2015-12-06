@@ -20,5 +20,11 @@ public class SeasonalDiscount extends Interval {
         percentage = newPercentage;
     }
 
+    public String toString() {
+        String repr = "From: " + CommandReader.dateFormat.format(begin);
+        repr += "\nTo: " + CommandReader.dateFormat.format(end);
+        repr += "\nPercentage: " + percentage;
+        return repr;
+    }
 
 }

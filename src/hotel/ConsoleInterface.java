@@ -9,50 +9,75 @@ import java.util.*;
 
 class CommandReader {
     Scanner scanInput;
-    DateFormat dateFormat;
+    static DateFormat dateFormat;
 
     public CommandReader() {
         scanInput = new Scanner(System.in);
         dateFormat = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
     }
 
-    public String readString() {
-        return scanInput.nextLine().trim();
-    }
-
-    public int readInt() throws IntExpectedException {
-        try {
-            return Integer.parseInt(scanInput.nextLine());
-        } catch(Exception e) {
-            throw new IntExpectedException();
+    public String readString() throws NoValueException {
+        String input = scanInput.nextLine().trim();
+        if(input.equals("")) {
+            throw new NoValueException();
+        } else {
+            return input;
         }
     }
 
-    public float readFloat() throws FloatExpectedException {
+    public int readInt() throws IntExpectedException, NoValueException {
+        String input = scanInput.nextLine().trim();
         try {
-            return Float.parseFloat(scanInput.nextLine());
+            return Integer.parseInt(input);
         } catch(Exception e) {
-            throw new FloatExpectedException();
+            if(input.equals("")) {
+                throw new NoValueException();
+            } else {
+                throw new IntExpectedException();
+            }
+        }
+    }
+
+    public float readFloat() throws FloatExpectedException, NoValueException {
+        String input = scanInput.nextLine().trim();
+        try {
+            return Float.parseFloat(input);
+        } catch(Exception e) {
+            if(input.equals("")) {
+                throw new NoValueException();
+            } else {
+                throw new FloatExpectedException();
+            }
         }
 
     }
 
-    public Date readDate() throws DateFormatException {
+    public Date readDate() throws DateFormatException, NoValueException {
+        String input = scanInput.nextLine().trim();
         try {
-            return dateFormat.parse(scanInput.nextLine());
+            return dateFormat.parse(input);
         } catch (ParseException e) {
-            throw new DateFormatException();
+            if (input.equals("")) {
+                throw new NoValueException();
+            } else {
+                throw new DateFormatException();
+            }
         }
+
     }
 
-    public boolean readBoolean() throws UndefinedBooleanException {
-        String value = readString();
-        if(value.toUpperCase().equals("YES")) {
+    public boolean readBoolean() throws UndefinedBooleanException, NoValueException {
+        String input = scanInput.nextLine().trim();
+        if(input.toUpperCase().equals("YES")) {
             return true;
-        } else if(value.toUpperCase().equals("NO")) {
+        } else if(input.toUpperCase().equals("NO")) {
             return false;
         } else {
-            throw new UndefinedBooleanException();
+            if (input.equals("")) {
+                throw new NoValueException();
+            } else {
+                throw new UndefinedBooleanException();
+            }
         }
     }
 
@@ -78,7 +103,16 @@ public class ConsoleInterface {
         commands.put("remove room", new RemoveRoom(commandReader));
         commands.put("change room number", new ChangeRoomNumber(commandReader));
 
-        commands.put("get residents count", new GetResidetsCount(commandReader));
+        commands.put("residents count", new GetResidentsCount(commandReader));
+
+        commands.put("add customer", new AddClient(commandReader));
+        commands.put("remove customer", new RemoveClient(commandReader));
+        commands.put("update customer", new UpdateClient(commandReader));
+        commands.put("find customer", new SearchClients(commandReader));
+
+        commands.put("add seasonal discount", new AddSeasonalDiscount(commandReader));
+        commands.put("remove seasonal discount", new RemoveSeasonalDiscount(commandReader));
+
     }
 
 
@@ -88,12 +122,17 @@ public class ConsoleInterface {
 
         while(true) {
             System.out.print("\n-->");
-            String input = commandReader.readString();
+            String input;
 
             try {
-                Command cmdObject = commands.get(input);
-                cmdObject.execute();
+                input = commandReader.readString();
+            } catch(NoValueException e) {
+                continue;
+            }
 
+            try {
+                Command cmdObject = commands.get(input.toLowerCase());
+                cmdObject.execute();
 
             } catch (NullPointerException e) {
                 if(input.equals("exit")) {
@@ -104,11 +143,11 @@ public class ConsoleInterface {
                 }
             }
 
-
         }
 
 
     }
 
-
 }
+
+
