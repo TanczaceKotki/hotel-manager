@@ -4,6 +4,7 @@ import hotel.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 abstract class Command {
     CommandReader reader;
@@ -12,6 +13,7 @@ abstract class Command {
     }
 
     public abstract void execute();
+    public String getDescription() {return "description...";}
 
 }
 
@@ -1185,14 +1187,23 @@ class LoadData extends Command {
 
 class PrintHelp extends Command {
 
+    String help = "";
+
     public PrintHelp(CommandReader commandReader) {
         super(commandReader);
     }
+    public PrintHelp(CommandReader commandReader, HashMap<String, Command> commands) {
+        super(commandReader);
+        for(String key : commands.keySet()) {
+            help += key + " - "+commands.get(key).getDescription()+"\n\n";
+        }
+        help += "exit - exit application\n";
+    }
+
 
     @Override
     public void execute() {
-        System.out.println("Data saved");
-
+        System.out.println(help);
     }
 
 }

@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03a02752-4977-4a40-8b52-de4d73efbd29" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/hotel/exceptions/NotFoundException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Commands.java" afterPath="$PROJECT_DIR$/src/hotel/Commands.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" afterPath="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Discounts.java" afterPath="$PROJECT_DIR$/test/Discounts.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Hotel.java" afterPath="$PROJECT_DIR$/src/hotel/Hotel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Interval.java" afterPath="$PROJECT_DIR$/src/hotel/Interval.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Reservation.java" afterPath="$PROJECT_DIR$/src/hotel/Reservation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hotel/Room.java" afterPath="$PROJECT_DIR$/src/hotel/Room.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Search.java" afterPath="$PROJECT_DIR$/test/Search.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hotel.iws" />
@@ -34,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ConsoleInterface.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConsoleInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/hotel/ConsoleInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4957627">
-              <caret line="105" column="78" selection-start-line="105" selection-start-column="78" selection-end-line="105" selection-end-column="78" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="129" column="66" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -46,30 +39,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Commands.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Commands.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/hotel/Commands.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.827586">
-              <caret line="1193" column="41" selection-start-line="1193" selection-start-column="41" selection-end-line="1193" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.5011287">
+              <caret line="1197" column="74" selection-start-line="1197" selection-start-column="74" selection-end-line="1197" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#22419#22420#0" expanded="true" />
-                <element signature="e#22455#22456#0" expanded="true" />
-                <element signature="e#28718#28719#0" expanded="true" />
-                <element signature="e#28754#28755#0" expanded="true" />
-                <element signature="e#30263#30264#0" expanded="true" />
-                <element signature="e#30299#30300#0" expanded="true" />
+                <element signature="e#22507#22508#0" expanded="true" />
+                <element signature="e#22543#22544#0" expanded="true" />
+                <element signature="e#28806#28807#0" expanded="true" />
+                <element signature="e#28842#28843#0" expanded="true" />
+                <element signature="e#30351#30352#0" expanded="true" />
+                <element signature="e#30387#30388#0" expanded="true" />
+                <element signature="e#34242#34243#0" expanded="true" />
+                <element signature="e#34282#34283#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NoValueException.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/hotel/exceptions/NoValueException.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -216,8 +201,8 @@
         <option value="$PROJECT_DIR$/src/hotel/Room.java" />
         <option value="$PROJECT_DIR$/src/hotel/Reservation.java" />
         <option value="$PROJECT_DIR$/src/hotel/Hotel.java" />
-        <option value="$PROJECT_DIR$/src/hotel/Commands.java" />
         <option value="$PROJECT_DIR$/src/hotel/ConsoleInterface.java" />
+        <option value="$PROJECT_DIR$/src/hotel/Commands.java" />
       </list>
     </option>
   </component>
@@ -658,12 +643,18 @@
       <option name="project" value="LOCAL" />
       <updated>1449378140373</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Finished user interface">
+      <created>1449440895322</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1449440895322</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -673,7 +664,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32840237" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26035503" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26035503" sideWeight="0.4941435" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17789166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -715,7 +706,8 @@
     <MESSAGE value="CSV data types implemented" />
     <MESSAGE value="Residents count, searching Room by ID" />
     <MESSAGE value="Seasonal discounts &amp; Clients interface commands; optional input" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seasonal discounts &amp; Clients interface commands; optional input" />
+    <MESSAGE value="Finished user interface" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished user interface" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1049,6 +1041,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36842105">
           <caret line="29" column="69" selection-start-line="29" selection-start-column="69" selection-end-line="29" selection-end-column="69" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1133,34 +1126,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hotel/exceptions/NoValueException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.21610169">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hotel/Commands.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.827586">
-          <caret line="1193" column="41" selection-start-line="1193" selection-start-column="41" selection-end-line="1193" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#22419#22420#0" expanded="true" />
-            <element signature="e#22455#22456#0" expanded="true" />
-            <element signature="e#28718#28719#0" expanded="true" />
-            <element signature="e#28754#28755#0" expanded="true" />
-            <element signature="e#30263#30264#0" expanded="true" />
-            <element signature="e#30299#30300#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/hotel/ConsoleInterface.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4957627">
-          <caret line="105" column="78" selection-start-line="105" selection-start-column="78" selection-end-line="105" selection-end-column="78" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="129" column="66" selection-start-line="129" selection-start-column="66" selection-end-line="129" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hotel/Commands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5011287">
+          <caret line="1197" column="74" selection-start-line="1197" selection-start-column="74" selection-end-line="1197" selection-end-column="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#22507#22508#0" expanded="true" />
+            <element signature="e#22543#22544#0" expanded="true" />
+            <element signature="e#28806#28807#0" expanded="true" />
+            <element signature="e#28842#28843#0" expanded="true" />
+            <element signature="e#30351#30352#0" expanded="true" />
+            <element signature="e#30387#30388#0" expanded="true" />
+            <element signature="e#34242#34243#0" expanded="true" />
+            <element signature="e#34282#34283#0" expanded="true" />
           </folding>
         </state>
       </provider>

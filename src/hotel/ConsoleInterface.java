@@ -92,11 +92,11 @@ public class ConsoleInterface {
     HashMap<String, Command> commands;
     CommandReader commandReader;
 
-
     public ConsoleInterface() {
 
         commandReader = new CommandReader();
         commands = new HashMap<String, Command>();
+
         commands.put("add room", new AddRoom(commandReader));
         commands.put("find rooms", new SearchRooms(commandReader));
         commands.put("update room", new UpdateRoom(commandReader));
@@ -127,7 +127,7 @@ public class ConsoleInterface {
 
         commands.put("save data", new SaveData(commandReader));
         commands.put("load data", new LoadData(commandReader));
-        commands.put("help", new PrintHelp(commandReader));
+        commands.put("help", new PrintHelp(commandReader, commands));
 
 
 
@@ -138,7 +138,7 @@ public class ConsoleInterface {
 
         Command command = null;
 
-        System.out.println("Welcome to hotel manager.\ntype \"help\" command to display all possible commands with their descriptions.");
+        System.out.println("Welcome to hotel manager.\ntype \"help\" command to display all commands with their descriptions");
 
         while(true) {
             System.out.print("\n-->");
