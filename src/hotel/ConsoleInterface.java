@@ -13,7 +13,7 @@ class CommandReader {
 
     public CommandReader() {
         scanInput = new Scanner(System.in);
-        dateFormat = new SimpleDateFormat("dd/mm/yyyy", Locale.ENGLISH);
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
     }
 
     public String readString() throws NoValueException {
@@ -98,7 +98,7 @@ public class ConsoleInterface {
         commandReader = new CommandReader();
         commands = new HashMap<String, Command>();
         commands.put("add room", new AddRoom(commandReader));
-        commands.put("find room", new SearchRooms(commandReader));
+        commands.put("find rooms", new SearchRooms(commandReader));
         commands.put("update room", new UpdateRoom(commandReader));
         commands.put("remove room", new RemoveRoom(commandReader));
         commands.put("change room number", new ChangeRoomNumber(commandReader));
@@ -108,10 +108,28 @@ public class ConsoleInterface {
         commands.put("add customer", new AddClient(commandReader));
         commands.put("remove customer", new RemoveClient(commandReader));
         commands.put("update customer", new UpdateClient(commandReader));
-        commands.put("find customer", new SearchClients(commandReader));
+        commands.put("find customers", new SearchClients(commandReader));
 
         commands.put("add seasonal discount", new AddSeasonalDiscount(commandReader));
+        commands.put("list seasonal discounts", new ListSeasonalDiscounts(commandReader));
         commands.put("remove seasonal discount", new RemoveSeasonalDiscount(commandReader));
+
+        commands.put("add early book discount", new AddEarlyBookDiscount(commandReader));
+        commands.put("list early book discounts", new ListEarlyBookDiscounts(commandReader));
+        commands.put("remove early book discount", new RemoveEarlyBookDiscount(commandReader));
+
+        commands.put("add reservation", new AddReservation(commandReader));
+        commands.put("find reservations", new SearchReservation(commandReader));
+        commands.put("cancel reservation", new CancelReservation(commandReader));
+        commands.put("pay reservation", new PayReservation(commandReader));
+        commands.put("move reservation", new MoveReservation(commandReader));
+        commands.put("update reservation", new UpdateReservation(commandReader));
+
+        commands.put("save data", new SaveData(commandReader));
+        commands.put("load data", new LoadData(commandReader));
+        commands.put("help", new PrintHelp(commandReader));
+
+
 
     }
 
@@ -119,6 +137,8 @@ public class ConsoleInterface {
     public void start() {
 
         Command command = null;
+
+        System.out.println("Welcome to hotel manager.\ntype \"help\" command to display all possible commands with their descriptions.");
 
         while(true) {
             System.out.print("\n-->");

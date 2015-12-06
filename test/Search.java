@@ -24,9 +24,9 @@ public class Search {
         assertNull(newRoom.getCurrentReservation());
 
         Person examplePerson = new Person(0, "Jan", "Kowalski");
-        Reservation r1 = newRoom.addReservation(new Date(), new Date(), examplePerson);
+        Reservation r1 = newRoom.addReservation(new Date(), new Date(), examplePerson, newRoom.getSeats());
         r1.seats = 3;
-        Reservation r2 = newRoom.addReservation(new Date(), new Date(), examplePerson);
+        Reservation r2 = newRoom.addReservation(new Date(), new Date(), examplePerson, newRoom.getSeats());
         r2.seats = 5;
 
         assertSame(new ArrayList<Room>().add(newRoom), hotel.availableRooms(r1));

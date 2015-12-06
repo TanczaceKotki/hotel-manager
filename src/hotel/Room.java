@@ -24,7 +24,7 @@ public class Room {
 
     public boolean isAvailable(Interval interval) {
         for(Reservation reservation: Hotel.getInstance().reservations) {
-            if(reservation.collides(interval) && reservation.getRoomId() == this.number) {
+            if(reservation.getRoomId() == this.number & reservation.collides(interval)) {
                 return false;
             }
         }
@@ -41,9 +41,8 @@ public class Room {
     }
 
     //return true - powodzenie
-    public Reservation addReservation(Date b, Date e, Person newPerson) {
-        //0 - wygeneruj nowe id
-        Reservation reservation =  new Reservation(0, b, e, this, newPerson, getSeats());
+    public Reservation addReservation(Date b, Date e, Person person, int seats) {
+        Reservation reservation =  new Reservation(0, b, e, this, person, seats);
         if(isAvailable(reservation)) {
             Hotel.getInstance().reservations.add(reservation);
             return reservation;
@@ -53,7 +52,12 @@ public class Room {
     }
 
     public String toString() {
-        String repr = "Room number: "+number+"\n";
+        String repr = "";
+        if(number >= 0) {
+            repr += "Room number: " + number + "\n";
+        } else {
+            repr += "Room number: None\n";
+        }
         repr += "Seats: "+seats+"\n";
         repr += "Standard: "+standard.toString()+"\n";
         repr += "Price per day: "+basePricePerDay;

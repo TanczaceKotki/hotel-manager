@@ -28,7 +28,7 @@ abstract class CommonCommand extends Command {
     }
 
     public boolean confirm(String message) throws UndefinedBooleanException, NoValueException {
-        System.out.println(message);
+        System.out.println(message + " (yes/no)");
         try {
             return reader.readBoolean();
         } catch (NoValueException e) {
@@ -36,6 +36,8 @@ abstract class CommonCommand extends Command {
         }
     }
 }
+
+//Rooms ------------------------------------------------------------------------------------------
 
 abstract class RoomCommand extends CommonCommand {
 
@@ -103,7 +105,7 @@ class AddRoom extends RoomCommand {
             Room.RoomStandard standard = queryStandard();
 
             //Dodawanie
-            if(confirm("Are you sure that you want to add specified room to the registery? (yes/no)")) {
+            if(confirm("Are you sure that you want to add specified room to the registery?")) {
 
                 room = new Room(number, seats, price, standard);
                 hotel.addRoom(room);
@@ -192,15 +194,16 @@ class RemoveRoom extends RoomCommand {
             Hotel hotel = Hotel.getInstance();
             Room room = hotel.getRoomByNumber(number);
             if(room != null) {
-                if(confirm("Are you sure that you want to remove selcted room from the registery? (yes/no)")) {
+                if(confirm("Are you sure that you want to remove selcted room from the registery?")) {
                     hotel.removeRoom(room);
+                    System.out.println("Room removed from the registery");
                 }
 
             } else {
-                System.out.println("No room with specified number found");
+                throw new NotFoundException("No room with specified number found");
             }
 
-        } catch (NumberFormatException | UndefinedBooleanException | NoValueException e) {
+        } catch (NumberFormatException | UndefinedBooleanException | NoValueException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -251,11 +254,11 @@ class UpdateRoom extends RoomCommand {
                     System.out.println("Room data updated succesfully");
                 }
             } else {
-                System.out.println("No room with specified number found");
+                throw new NotFoundException("No room with specified number found");
 
             }
 
-        } catch (NumberFormatException | UndefinedBooleanException | NoValueException | NoSuchOptionException e) {
+        } catch (NumberFormatException | UndefinedBooleanException | NoValueException | NoSuchOptionException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -285,10 +288,10 @@ class ChangeRoomNumber extends RoomCommand {
                 room.changeNumber(newNumber);
 
             } else {
-                System.out.println("No room with specified number found");
+                throw new NotFoundException("No room with specified number found");
             }
 
-        } catch (NumberFormatException | RoomAlreadyExistsException | NoValueException e) {
+        } catch (NumberFormatException | RoomAlreadyExistsException | NoValueException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -296,6 +299,7 @@ class ChangeRoomNumber extends RoomCommand {
 
 }
 
+//Customers ------------------------------------------------------------------------------------------
 
 class GetResidentsCount extends Command {
 
@@ -313,7 +317,6 @@ class GetResidentsCount extends Command {
 }
 
 
-// Customers
 
 abstract class PersonCommand extends CommonCommand {
 
@@ -375,12 +378,12 @@ class AddClient extends PersonCommand {
                 email = "";
             }
 
-            if(confirm("Are you sure that you want to add new person to the registery? (yes/no)")) {
+            if(confirm("Are you sure that you want to add new person to the registery?")) {
                 Hotel hotel = Hotel.getInstance();
                 int newId = Person.generateId();
                 Person person = new Person(newId, firstname, surname, phoneNumber, email);
                 hotel.addClient(person);
-
+                System.out.println("Customer "+person.getId()+" added succesfully");
             }
 
         } catch (NumberFormatException | NoValueException | UndefinedBooleanException e) {
@@ -507,11 +510,11 @@ class UpdateClient extends PersonCommand {
 
 
             } else {
-                System.out.println("No customer with specified id found");
+                throw new NotFoundException("No customer with specified id found");
             }
 
 
-        } catch (NumberFormatException | NoValueException | UndefinedBooleanException e) {
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -535,16 +538,16 @@ class RemoveClient extends PersonCommand {
             Person customer = hotel.getClientById(id);
 
             if(customer != null) {
-                if (confirm("Are you sure that you want to remove this customer from the registery? (yes/no)")) {
+                if (confirm("Are you sure that you want to remove this customer from the registery?")) {
                     hotel.removeClient(customer);
                     System.out.println("Customer removed from the registery");
                 }
             } else {
-                System.out.println("No customer with specified id found");
+                throw new NotFoundException("No customer with specified id found");
 
             }
 
-        } catch (NumberFormatException | NoValueException | UndefinedBooleanException e) {
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
             System.out.println(e.getMessage());
         }
 
@@ -553,6 +556,7 @@ class RemoveClient extends PersonCommand {
 }
 
 
+//Discounts ------------------------------------------------------------------------------------------
 
 class AddSeasonalDiscount extends CommonCommand {
 
@@ -598,20 +602,48 @@ class RemoveSeasonalDiscount extends CommonCommand {
             System.out.println("\nSeasonal discounts list:");
 
             if(info.length > 0) {
+                System.out.println("\nIndex of discount to delete:");
+                int index = reader.readInt();
+                if(index >= 0 && index < info.length && confirm("Are you sure that you want to remove selected discount?")) {
+                    hotel.removeSeasonalDiscount(index);
+                    System.out.println("Discount removed from the list");
+                } else {
+                    throw new NotFoundException("No discount with specified index found");
+                }
+            } else {
+                System.out.println("No discounts");
+            }
+
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+
+class ListSeasonalDiscounts extends CommonCommand {
+
+    public ListSeasonalDiscounts(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+            String[] info = hotel.getSeasonalDiscountInfo();
+            System.out.println("\nSeasonal discounts list:");
+
+            if(info.length > 0) {
                 for (int i=0; i<info.length; i++) {
                     System.out.println("---------");
                     System.out.println(info[i]);
                 }
                 System.out.print("---------");
 
-                System.out.println("\nId of discount to delete:");
-                int index = reader.readInt();
-                if(index >= 0 && index < info.length) {
-                    hotel.removeSeasonalDiscount(index);
-                    System.out.println("Discount removed from the list");
-                } else {
-                    System.out.println("No discount with specified id found");
-                }
             } else {
                 System.out.println("No discounts");
             }
@@ -620,9 +652,546 @@ class RemoveSeasonalDiscount extends CommonCommand {
 
 
 
-        } catch (NumberFormatException | NoValueException e) {
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
         }
+
+    }
+
+}
+
+
+
+
+class AddEarlyBookDiscount extends CommonCommand {
+
+    public AddEarlyBookDiscount(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            System.out.println("Percentage:");
+            int percentage = reader.readInt();
+            System.out.println("Months:");
+            int months = reader.readInt();
+
+            if(confirm("Do you want to add specified discount to the discount list?")) {
+                Hotel hotel = Hotel.getInstance();
+                hotel.addEarlyBookDiscount(new EarlyBookingDiscount(months, percentage));
+                System.out.println("Discount added to the list");
+            }
+
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+
+class RemoveEarlyBookDiscount extends CommonCommand {
+
+    public RemoveEarlyBookDiscount(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+            String[] info = hotel.getEarlyBookDiscountInfo();
+            System.out.println("\nEarly book discounts list:");
+
+            if(info.length > 0) {
+                System.out.println("\nIndex of discount to delete:");
+                int index = reader.readInt();
+                if(index >= 0 && index < info.length && confirm("Are you sure that you want to remove selected discount?")) {
+                    hotel.removeEarlyBookDiscount(index);
+                    System.out.println("Discount removed from the list");
+                } else {
+                    throw new NotFoundException("no discount with specified index found");
+                }
+            } else {
+                System.out.println("No discounts");
+            }
+
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+class ListEarlyBookDiscounts extends CommonCommand {
+
+    public ListEarlyBookDiscounts(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+            String[] info = hotel.getEarlyBookDiscountInfo();
+            System.out.println("\nEarly book discounts list:");
+
+            if(info.length > 0) {
+                for (int i=0; i<info.length; i++) {
+                    System.out.println("---------");
+                    System.out.println(info[i]);
+                }
+                System.out.print("---------");
+
+            } else {
+                System.out.println("No discounts");
+            }
+
+
+
+
+
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+//Reservations ------------------------------------------------------------------------------------------
+
+abstract class ReservationCommand extends CommonCommand {
+
+    public ReservationCommand(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    public int queryNumber() throws IntExpectedException, NoValueException {
+        System.out.println("Room number:");
+        return reader.readInt();
+    }
+
+    public int querySeats() throws IntExpectedException, NoValueException {
+        System.out.println("Seats:");
+        return reader.readInt();
+    }
+
+    public int queryId() throws IntExpectedException, NoValueException {
+        System.out.println("Reservation Id:");
+        return reader.readInt();
+    }
+
+    public int queryPerson() throws IntExpectedException, NoValueException {
+        System.out.println("Reservation owner (customer) Id:");
+        return reader.readInt();
+    }
+
+}
+
+
+class AddReservation extends ReservationCommand {
+
+    public AddReservation(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+            Person person;
+            int roomId = queryNumber();
+            Room room = hotel.getRoomByNumber(roomId);
+            if(room != null) {
+                int seats = querySeats();
+                if(seats <= room.getSeats()) {
+
+                    try {
+                        person = hotel.getClientById( queryPerson());
+                        if(!(person != null))
+                            throw new NotFoundException("No customer with specified id found");
+
+                    } catch (NoValueException e) {
+                        person = null;
+                    }
+
+                    Date begin = queryDate("Reservation from:");
+                    Date end = queryDate("Reservation to:");
+
+                    if (confirm("Are you sore that you want ro add this reservation to the registery?")) {
+                        Reservation reservation = room.addReservation(begin, end, person, seats);
+                        if(reservation != null) {
+                            System.out.println("Reservation: "+reservation.getId()+" made succesfully");
+                        } else {
+                            System.out.println("Specified reservation cannot be created. Probably reservation with colliding interval already exists in the system");
+                        }
+                        }
+
+                } else {
+                    System.out.println("Room does not have enough seats for this reservation");
+                }
+            } else {
+                throw new NotFoundException("No room with specified id found");
+            }
+
+
+        } catch (NumberFormatException | NoValueException | DateFormatException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+
+class CancelReservation extends ReservationCommand {
+
+    public CancelReservation(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+            int id = queryId();
+            Reservation reservation = hotel.getReservationById(id);
+            if(reservation != null) {
+                if (confirm("Are you sore that you want ro remove this reservation from the registery?")) {
+                    hotel.removeReservation(reservation);
+                    System.out.println("Reservation removed from the registery");
+                }
+            } else {
+                throw new NotFoundException("No reservation with specified id found");
+            }
+
+
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+}
+
+
+
+class SearchReservation extends ReservationCommand {
+
+    public SearchReservation(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+
+            int roomId;
+            try {
+                roomId = queryNumber();
+            } catch (NoValueException e) {
+                roomId = -1;
+            }
+
+            int personId;
+            try {
+                personId = queryPerson();
+            } catch (NoValueException e) {
+                personId = 0;
+            }
+
+            int seats;
+            try {
+                seats = querySeats();
+            } catch(NoValueException e) {
+                seats = 0;
+            }
+
+            Date creationDateFrom, creationDateTo;
+            try {
+                creationDateFrom = queryDate("Creation date from: ");
+                creationDateTo = queryDate("Creation date to: ");
+
+            } catch (NoValueException e) {
+                creationDateFrom = null;
+                creationDateTo = null;
+            }
+
+
+            Date begin, end;
+            try {
+                begin = queryDate("Begin date: ");
+                end = queryDate("End date:");
+
+            } catch (NoValueException e) {
+                begin = null;
+                end = null;
+            }
+
+            Interval cdInterval = null;
+            if(creationDateFrom != null)
+                cdInterval = new Interval(creationDateFrom, creationDateTo);
+
+            Interval collisionInterval = null;
+            if(begin != null)
+                collisionInterval = new Interval(begin, end);
+
+
+
+            //Wyszukiwanie
+            System.out.println("\nSearch results:");
+            ArrayList<Reservation> reservations = hotel.findReservations(roomId, seats, cdInterval, personId, collisionInterval);
+
+            if(reservations.size() > 0) {
+                for (Reservation r : reservations) {
+                    System.out.println("---------");
+                    System.out.println(r.toString());
+                }
+                System.out.print("---------");
+            } else {
+                System.out.println("No results found");
+            }
+
+
+        } catch (NumberFormatException | DateFormatException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+}
+
+
+class PayReservation extends ReservationCommand {
+
+    public PayReservation(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+
+        try {
+            Hotel hotel = Hotel.getInstance();
+            int id = queryId();
+            Reservation reservation = hotel.getReservationById(id);
+
+            if(reservation != null) {
+                System.out.println("Amount:");
+                float amount = reader.readFloat();
+                if (confirm("Payment confirmation")) {
+                    reservation.pay(amount);
+                }
+            } else {
+                throw new NotFoundException("No reservation with specified id found");
+            }
+
+
+
+
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+
+}
+
+
+class MoveReservation extends ReservationCommand {
+
+    public MoveReservation(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+        try {
+            Hotel hotel = Hotel.getInstance();
+            int id = queryId();
+            Reservation reservation = hotel.getReservationById(id);
+
+            if(reservation != null) {
+                Date newBegin;
+                try {
+                    newBegin = queryDate("Reservation from: ");
+                } catch (NoValueException e) {
+                    newBegin = reservation.begin;
+                }
+
+                Date newEnd;
+                try {
+                    newEnd = queryDate("Reservation to: ");
+                } catch (NoValueException e) {
+                    newEnd = reservation.end;
+                }
+
+                if (confirm("Do you want to apply changes?")) {
+                    if (reservation.changeDates(newBegin, newEnd)) {
+                        System.out.println("Reservation moved succesfully");
+                    } else {
+                        System.out.println("Cannot move reservation due to collision");
+                    }
+                }
+
+            } else {
+                throw new NotFoundException("No reservation with specified id found");
+            }
+
+
+
+        } catch (NumberFormatException | NoValueException | DateFormatException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+
+class UpdateReservation extends ReservationCommand {
+
+    public UpdateReservation(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+        try {
+            Hotel hotel = Hotel.getInstance();
+            int id = queryId();
+            Reservation reservation = hotel.getReservationById(id);
+
+            if(reservation != null) {
+
+
+                //Sczytuje room
+                Room room = hotel.getRoomByNumber(reservation.getRoomId());
+                Room newRoom = null;
+
+                try {
+                    System.out.println("New room number:");
+                    int newRoomId = reader.readInt();
+                    newRoom = hotel.getRoomByNumber(newRoomId);
+
+                    if(newRoom == null) {
+                        throw new NotFoundException("No room with specified id found");
+                    }
+
+                } catch (NoValueException e) {
+                    newRoom = room;
+                }
+
+
+                int seats;
+                try {
+                    seats = querySeats();
+                } catch (NoValueException e) {
+                    seats = reservation.seats;
+                }
+
+                if(newRoom != null) {
+                    if(room != newRoom) {
+                        if (!newRoom.isAvailable(reservation))
+                            throw new NotFoundException("Cannot change room due to collision with existing reservation");
+                        if (newRoom.getSeats() < seats)
+                            throw new NotFoundException("Room does not have enough seats for this reservation");
+                    } else {
+                        if (newRoom.getSeats() < seats && seats >= reservation.getSeats())
+                            throw new NotFoundException("Room does not have enough seats for this reservation");
+                    }
+                }
+
+
+                Person client;
+                try {
+                    int customerId = queryPerson();
+                    client = hotel.getClientById(customerId);
+                } catch (NoValueException e) {
+                    client = null;
+                }
+
+
+                //Wprowadzanie zmian
+                if (confirm("Do you want to apply changes?")) {
+
+                    if (newRoom != null) {
+                        reservation.room = newRoom;
+                    }
+                    if (client != null) {
+                        reservation.person = client;
+                    }
+                    reservation.seats = seats;
+                    System.out.println("Reservation data updated succesfully");
+                }
+
+
+            } else {
+                throw new NotFoundException("No reservation with specified id found");
+            }
+
+        } catch (NumberFormatException | NoValueException | UndefinedBooleanException | NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+}
+
+//Serialization, help ------------------------------------------------------------------------------------------
+
+class SaveData extends Command {
+
+    public SaveData(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("Data saved");
+
+    }
+
+}
+
+
+class LoadData extends Command {
+
+    public LoadData(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("Data loaded");
+
+    }
+
+}
+
+class PrintHelp extends Command {
+
+    public PrintHelp(CommandReader commandReader) {
+        super(commandReader);
+    }
+
+    @Override
+    public void execute() {
+        System.out.println("Data saved");
 
     }
 

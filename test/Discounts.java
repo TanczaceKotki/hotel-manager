@@ -41,7 +41,7 @@ public class Discounts {
         Calendar to =  Calendar.getInstance();
         to.set(2015, 10, 10);
 
-        Reservation reservation = room.addReservation(from.getTime(), to.getTime(), examplePerson);
+        Reservation reservation = room.addReservation(from.getTime(), to.getTime(), examplePerson, room.getSeats());
         reservation.seats = 2;
 
         System.out.println(reservation.calculatePrice());

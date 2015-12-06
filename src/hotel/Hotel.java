@@ -75,6 +75,10 @@ public class Hotel {
     }
 
     public void removeClient(Person client) {
+        ArrayList<Reservation> clientReservations = findReservations(-1, 0, null, client.getId(), null);
+        for(Reservation r : clientReservations) {
+            r.person = null;
+        }
         clients.remove(client);
     }
 
@@ -114,6 +118,10 @@ public class Hotel {
     }
 
     public void removeRoom(Room room) {
+        ArrayList<Reservation> roomReservations = findReservations(room.getNumber(), 0, null, 0, null);
+        for(Reservation r : roomReservations) {
+            r.room = null;
+        }
         rooms.remove(room);
     }
 
@@ -163,6 +171,46 @@ public class Hotel {
         return null;
     }
 
+    public void removeReservation(Reservation reservation) {
+        reservations.remove(reservation);
+    }
+
+    public ArrayList<Reservation> findReservations(int roomId, int seats, Interval creationDateInterval, int personId, Interval collisionInterval) {
+
+        ArrayList<Reservation> result = new ArrayList<Reservation>();
+
+        for(Reservation r : reservations) {
+
+            boolean roomCondition = true;
+            if(roomId >= 0)
+                roomCondition = r.getRoomId() == roomId;
+
+            boolean seatsCondition = true;
+            if(seats > 0)
+                seatsCondition = r.getSeats() == seats;
+
+            boolean personCondition = true;
+            if(personId > 0)
+                personCondition = r.getPersonId() == personId;
+
+            boolean createCondition = true;
+            if(creationDateInterval != null)
+                createCondition = creationDateInterval.contains(r.creationDate);
+
+            boolean collisionCondition = true;
+            if(collisionInterval != null)
+                collisionCondition = collisionInterval.collides(r);
+
+
+            if(roomCondition & seatsCondition & personCondition & createCondition & collisionCondition) {
+                result.add(r);
+            }
+        }
+
+        return result;
+
+    }
+
 
     //Discounts ------------------------------------------------
     public void addSeasonalDiscount(SeasonalDiscount sd) {
@@ -175,16 +223,26 @@ public class Hotel {
     public String[] getSeasonalDiscountInfo() {
         String[] info = new String[seasonalDiscounts.size()];
         for(int i=0; i< seasonalDiscounts.size(); i++) {
-            info[i] = "Id: "+i+"\n"+  seasonalDiscounts.get(i).toString();
+            info[i] = "Index: "+i+"\n"+  seasonalDiscounts.get(i).toString();
         }
         return info;
     }
 
+
     public void addEarlyBookDiscount(EarlyBookingDiscount ebd) {
         earlyBookingDiscounts.add(ebd);
     }
-    public void removeEarlyBookDiscount(EarlyBookingDiscount ebd) {
-        earlyBookingDiscounts.remove(ebd);
+    public void removeEarlyBookDiscount(int index) {
+        earlyBookingDiscounts.remove(index);
+    }
+
+
+    public String[] getEarlyBookDiscountInfo() {
+        String[] info = new String[earlyBookingDiscounts.size()];
+        for(int i=0; i< earlyBookingDiscounts.size(); i++) {
+            info[i] = "Index: "+i+"\n"+  earlyBookingDiscounts.get(i).toString();
+        }
+        return info;
     }
 
     public static void main(String [ ] args) throws IOException {
