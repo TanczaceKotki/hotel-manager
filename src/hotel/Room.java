@@ -1,5 +1,9 @@
 package hotel;
 
+import hotel.Hotel;
+import hotel.Interval;
+import hotel.Person;
+import hotel.Reservation;
 import hotel.exceptions.RoomAlreadyExistsException;
 
 import java.util.Date;
@@ -85,15 +89,15 @@ public class Room {
         return null;
     }
 
-    void setSeats(int seats) {
+    public void setSeats(int seats) {
         this.seats = seats;
     }
 
-    void setBasePricePerDay(float basePricePerDay) {
+    public void setBasePricePerDay(float basePricePerDay) {
         this.basePricePerDay = basePricePerDay;
     }
 
-    void setStandard(RoomStandard standard) {
+    public void setStandard(RoomStandard standard) {
         this.standard = standard;
     }
 

@@ -1,10 +1,10 @@
-package hotel;
+package CSV;
 import CSV.CSV;
 
 public class DataManager {
     CSV csv;
 
-    DataManager() {
+    public DataManager() {
         csv = new CSV();
     }
 

@@ -1,5 +1,7 @@
 import hotel.*;
 import hotel.Room;
+import hotel.Person;
+import hotel.Reservation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -19,7 +21,7 @@ public class Discounts {
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(3, 10));
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(6, 15));
 
-        //Zni¿ka na Listopad
+        //Zniï¿½ka na Listopad
         Calendar cal = Calendar.getInstance();
         cal.set(2015, 10, 1);
         Date discountBegin = cal.getTime();
@@ -27,7 +29,7 @@ public class Discounts {
         Date discountEnd = cal.getTime();
         hotel.seasonalDiscounts.add(new SeasonalDiscount(discountBegin, discountEnd, 10));
 
-        hotel.Room room = new Room(1, 4, 80, Room.RoomStandard.HIGH);
+        Room room = new Room(1, 4, 80, Room.RoomStandard.HIGH);
         try {
             hotel.addRoom(room);
         } catch (Exception e) {}

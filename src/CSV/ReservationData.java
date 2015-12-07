@@ -1,4 +1,4 @@
-package CSV.type;
+package CSV;
 
 import hotel.Person;
 import hotel.Reservation;
@@ -7,12 +7,11 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import java.lang.reflect.Array;
 import java.util.Date;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ReservationData implements DataType<Reservation> {
+class ReservationData implements DataType<Reservation> {
 
     ArrayList<Person> persons;
     ArrayList<Room> rooms;

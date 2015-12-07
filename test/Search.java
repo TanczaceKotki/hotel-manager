@@ -2,7 +2,6 @@ import hotel.Hotel;
 import hotel.Person;
 import hotel.Reservation;
 import hotel.Room;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;

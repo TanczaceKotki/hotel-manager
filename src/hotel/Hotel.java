@@ -1,5 +1,6 @@
 package hotel;
 
+import CSV.DataManager;
 import hotel.exceptions.RoomAlreadyExistsException;
 
 import java.io.IOException;
@@ -24,11 +25,11 @@ public class Hotel {
 
     }
 
-    public ArrayList<hotel.Room> rooms;
+    private ArrayList<Room> rooms;
     public ArrayList<SeasonalDiscount> seasonalDiscounts;
     public ArrayList<EarlyBookingDiscount> earlyBookingDiscounts;
     public ArrayList<Reservation> reservations;
-    public ArrayList<Person> clients;
+    private ArrayList<Person> clients;
 
 
 
@@ -44,8 +45,7 @@ public class Hotel {
 
     }
 
-    // current num of accommodated people
-    //Interfejs uzytkownika
+    // User interface
     ConsoleInterface userInterface;
 
     void initializeUserInterface() {
@@ -57,7 +57,7 @@ public class Hotel {
 
     //Customers ------------------------------------------------
 
-    //Liczba osób aktualnie przyebywaj¹cych w hotelu
+    // Current num of accommodated people
     public int numOfPeople() {
         int people = 0;
         Date today = new Date();
@@ -249,13 +249,13 @@ public class Hotel {
 
         Hotel hotel = Hotel.getInstance();
 
-        //Mo¿na wykorzystaæ ten kod jako testowy
+        //Moï¿½na wykorzystaï¿½ ten kod jako testowy
         //Docelowo zapisywane do CSV ----------------------------------------------------------
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(1, 5));
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(3, 10));
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(6, 15));
 
-        //Zni¿ka na Listopad
+        //Zniï¿½ka na Listopad
         Calendar cal = Calendar.getInstance();
         cal.set(2015, 10, 1);
         Date discountBegin = cal.getTime();

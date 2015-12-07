@@ -1,7 +1,5 @@
 package hotel;
 
-import jdk.nashorn.internal.codegen.CompilerConstants;
-
 import java.util.Calendar;
 import java.util.Date;
 

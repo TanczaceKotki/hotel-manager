@@ -1,4 +1,4 @@
-package CSV.type;
+package CSV;
 
 import hotel.Person;
 import org.apache.commons.csv.CSVParser;
@@ -8,7 +8,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ClientData implements DataType<Person>{
+class ClientData implements DataType<Person> {
     @Override
     public ArrayList<Person> importData(CSVParser parser) {
         ArrayList<Person> list = new ArrayList<>();

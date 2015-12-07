@@ -1,6 +1,5 @@
 package CSV;
 
-import CSV.type.DataType;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
@@ -11,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CSV {
+class CSV {
     static CSVFormat format = CSVFormat.RFC4180.withHeader().withDelimiter(',');
     public <T> ArrayList<T> importData (File file, DataType<T> dataType) throws IOException {
         FileReader reader = new FileReader(file);
