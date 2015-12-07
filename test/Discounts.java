@@ -21,7 +21,7 @@ public class Discounts {
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(3, 10));
         hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(6, 15));
 
-        //Zni�ka na Listopad
+        // November discount
         Calendar cal = Calendar.getInstance();
         cal.set(2015, 10, 1);
         Date discountBegin = cal.getTime();
