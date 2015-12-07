@@ -13,9 +13,9 @@ public class DataManager {
     ClientData clientData = new ClientData();
     RoomData roomData = new RoomData();
     ReservationData reservationData;
-    ArrayList<Room> rooms;
-    ArrayList<Person> clients;
-    ArrayList<Reservation> reservations;
+    public ArrayList<Room> rooms;
+    public ArrayList<Person> clients;
+    public ArrayList<Reservation> reservations;
 
     public DataManager() {
         csv = new CSV();
@@ -42,6 +42,26 @@ public class DataManager {
             reservations = csv.<Reservation>importData(file, reservationData);
         } catch (IOException e) {}
         return reservations;
+    }
+
+    public void defaultRoomExport() {
+        File file = new File("./data/rooms.csv");
+        try {
+            csv.<Room>exportData(rooms, file, roomData);
+        } catch (IOException e) {}
+    }
+    public void defaultPersonExport() {
+        File file = new File("./data/rooms.csv");
+        try {
+            csv.<Person>exportData(clients, file, clientData);
+        } catch (IOException e) {}
+    }
+    public void defaultReservationExport() {
+        File file = new File("./data/rooms.csv");
+        reservationData = new ReservationData(clients, rooms);
+        try {
+            csv.<Reservation>exportData(reservations, file, reservationData);
+        } catch (IOException e) {}
     }
 
 }
