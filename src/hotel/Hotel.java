@@ -23,7 +23,7 @@ public class Hotel {
     private ConsoleInterface userInterface;
 
 
-    public Hotel() throws IOException {
+    private Hotel() throws IOException {
         rooms = new ArrayList<>();
         reservations = new ArrayList<>();
         seasonalDiscounts = new ArrayList<>();
@@ -31,6 +31,7 @@ public class Hotel {
         clients = new ArrayList<>();
         dataManager = new DataManager();
         initializeUserInterface();
+        importAllData();
 
     }
 

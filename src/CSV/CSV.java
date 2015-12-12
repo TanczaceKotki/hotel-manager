@@ -23,9 +23,7 @@ class CSV {
     }
 
     public <T> void exportData (ArrayList<T> list, File file, DataType<T> dataType) throws IOException {
-        System.out.println(list.size());
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        FileWriter writer = new FileWriter(file);
+        FileWriter writer = new FileWriter(file, false);
         CSVPrinter printer = new CSVPrinter(writer, format);
 
         dataType.exportData(list, printer);

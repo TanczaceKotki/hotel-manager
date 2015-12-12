@@ -27,7 +27,7 @@ class ClientData implements DataType<Person> {
 
     @Override
     public void exportData(ArrayList<Person> list, CSVPrinter printer) throws IOException {
-        printer.printRecord("number","seats","standard","base_price");
+        printer.printRecord("id", "firstname","surname","telephone","email");
         for(Person p : list){
             ArrayList<String> clientData = new ArrayList<>();
             clientData.add(Integer.toString(p.getId()));

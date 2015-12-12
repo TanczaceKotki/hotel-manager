@@ -68,9 +68,9 @@ class CommandReader {
 
     public boolean readBoolean() throws UndefinedBooleanException, NoValueException {
         String input = scanInput.nextLine().trim();
-        if(input.toUpperCase().equals("YES")) {
+        if(input.toUpperCase().equals("YES") || input.toUpperCase().equals("Y")) {
             return true;
-        } else if(input.toUpperCase().equals("NO")) {
+        } else if(input.toUpperCase().equals("NO") || input.toUpperCase().equals("N")) {
             return false;
         } else {
             if (input.equals("")) {
@@ -95,7 +95,7 @@ public class ConsoleInterface {
     public ConsoleInterface() {
 
         commandReader = new CommandReader();
-        commands = new HashMap<String, Command>();
+        commands = new HashMap<>();
 
         commands.put("add room", new AddRoom(commandReader));
         commands.put("find rooms", new SearchRooms(commandReader));
@@ -156,6 +156,7 @@ public class ConsoleInterface {
 
             } catch (NullPointerException e) {
                 if(input.equals("exit")) {
+                    commands.get("save data").execute();
                     commandReader.dispose();
                     break;
                 } else {
