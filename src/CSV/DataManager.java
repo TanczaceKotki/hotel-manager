@@ -21,46 +21,55 @@ public class DataManager {
         csv = new CSV();
     }
 
-    public ArrayList<Room> defaultRoomImport() {
-        File file = new File("./data/rooms.csv");
+    public ArrayList<Room> roomImport() {
+        rooms = new ArrayList<>();
+        File file = new File("src/data/rooms.csv");
         try {
-            rooms = csv.<Room>importData(file, roomData);
+            rooms = csv.importData(file, roomData);
         } catch (IOException e) {}
         return rooms;
     }
-    public ArrayList<Person> defaultPersonImport() {
-        File file = new File("./data/rooms.csv");
+    public ArrayList<Person> personImport() {
+        clients = new ArrayList<>();
+        File file = new File("src/data/clients.csv");
         try {
-            clients = csv.<Person>importData(file, clientData);
+            clients = csv.importData(file, clientData);
         } catch (IOException e) {}
         return clients;
     }
-    public ArrayList<Reservation> defaultReservationImport() {
-        File file = new File("./data/rooms.csv");
-        reservationData = new ReservationData(clients, rooms);
+    public ArrayList<Reservation> reservationImport(ArrayList<Room> roomArrayList, ArrayList<Person> personArrayList) {
+        reservations = new ArrayList<>();
+        File file = new File("src/data/current_log.csv");
+        reservationData = new ReservationData(roomArrayList, personArrayList);
         try {
-            reservations = csv.<Reservation>importData(file, reservationData);
+            reservations = csv.importData(file, reservationData);
         } catch (IOException e) {}
         return reservations;
     }
 
-    public void defaultRoomExport() {
-        File file = new File("./data/rooms.csv");
+    public void roomExport(ArrayList<Room> roomArrayList) {
+        File file = new File("src/data/rooms.csv");
         try {
-            csv.<Room>exportData(rooms, file, roomData);
+            csv.exportData(roomArrayList, file, roomData);
+        } catch (IOException e) {
+            System.out.print(e.toString());
+        }
+    }
+    public void personExport(ArrayList<Person> personArrayList) {
+        File file = new File("src/data/clients.csv");
+        try {
+            csv.exportData(personArrayList, file, clientData);
         } catch (IOException e) {}
     }
-    public void defaultPersonExport() {
-        File file = new File("./data/rooms.csv");
+    public void reservationExport(
+            ArrayList<Reservation> reservationArrayList,
+            ArrayList<Room> roomArrayList,
+            ArrayList<Person> personArrayList
+    ) {
+        File file = new File("src/data/current_log.csv");
+        reservationData = new ReservationData(roomArrayList, personArrayList);
         try {
-            csv.<Person>exportData(clients, file, clientData);
-        } catch (IOException e) {}
-    }
-    public void defaultReservationExport() {
-        File file = new File("./data/rooms.csv");
-        reservationData = new ReservationData(clients, rooms);
-        try {
-            csv.<Reservation>exportData(reservations, file, reservationData);
+            csv.exportData(reservationArrayList, file, reservationData);
         } catch (IOException e) {}
     }
 

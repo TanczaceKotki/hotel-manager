@@ -28,6 +28,7 @@ class RoomData implements DataType<Room> {
     public void exportData(ArrayList<Room> list, CSVPrinter printer) throws IOException{
         printer.printRecord("number","seats","standard","base_price");
         for(Room r : list){
+
             ArrayList<String> roomData = new ArrayList<>();
             roomData.add(Integer.toString(r.getNumber()));
             roomData.add(Integer.toString(r.getSeats()));

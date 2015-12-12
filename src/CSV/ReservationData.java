@@ -16,30 +16,28 @@ class ReservationData implements DataType<Reservation> {
     ArrayList<Person> persons;
     ArrayList<Room> rooms;
 
-    public ReservationData(ArrayList<Person> persons, ArrayList<Room> rooms) {
-        updateClientRoomLists(persons, rooms);
+    public ReservationData(ArrayList<Room> rooms, ArrayList<Person> persons) {
+        updateLists(rooms, persons);
     }
 
-    public void updateClientRoomLists(ArrayList<Person> persons, ArrayList<Room> rooms) {
+    public void updateLists(ArrayList<Room> rooms, ArrayList<Person> persons) {
         this.persons = persons;
         this.rooms = rooms;
     }
     @Override
     public ArrayList<Reservation> importData(CSVParser parser) {
-        String roomIdTmp;
-        String clientIdTmp;
         Room roomTmp;
         Person clientTmp;
         ArrayList<Reservation> list = new ArrayList<>();
         for(CSVRecord record : parser){
-            roomIdTmp = record.get("room");
+            String roomIdTmp = record.get("room");
             if (roomIdTmp != null && !roomIdTmp.equals("0")) {
                 roomTmp = rooms.stream().filter(x -> x.getNumber() == Integer.parseInt(roomIdTmp)).findFirst().get();
             } else {
                 roomTmp = null;
             }
 
-            clientIdTmp = record.get("client");
+            String clientIdTmp = record.get("client");
             if (clientIdTmp != null && !clientIdTmp.equals("0")) {
                 clientTmp = persons.stream().filter(x -> x.getId() == Integer.parseInt(clientIdTmp)).findFirst().get();
             } else {

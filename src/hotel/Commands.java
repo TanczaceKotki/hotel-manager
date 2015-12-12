@@ -1164,6 +1164,8 @@ class SaveData extends Command {
 
     @Override
     public void execute() {
+        Hotel hotel = Hotel.getInstance();
+        hotel.exportAllData();
         System.out.println("Data saved");
 
     }
@@ -1179,6 +1181,8 @@ class LoadData extends Command {
 
     @Override
     public void execute() {
+        Hotel hotel = Hotel.getInstance();
+        hotel.importAllData();
         System.out.println("Data loaded");
 
     }
