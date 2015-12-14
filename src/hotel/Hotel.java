@@ -41,7 +41,7 @@ public class Hotel {
         clients = new ArrayList<>();
         dataManager = new DataManager();
         initializeUserInterface();
-        importAllData();
+
 
     }
 
@@ -60,7 +60,7 @@ public class Hotel {
     public static void main(String[] args) throws IOException {
 
         Hotel hotel = Hotel.getInstance();
-
+        hotel.importAllData();
 //        //Mo?na wykorzysta? ten kod jako testowy
 //        //Docelowo zapisywane do CSV ----------------------------------------------------------
 //        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(1, 5));

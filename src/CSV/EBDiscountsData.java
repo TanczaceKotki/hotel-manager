@@ -1,7 +1,6 @@
 package CSV;
 
 import hotel.EarlyBookingDiscount;
-import hotel.Room;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
