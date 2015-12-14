@@ -72,7 +72,7 @@ public class Room {
     public boolean cancelReservation(Reservation reservation) {
         //Mo�na usuwa� tylko rezerwacje dotycz�ce tego pokoju
         if(reservation.getRoomId() == this.number) {
-            Hotel.getInstance().reservations.remove(reservation);
+            Hotel.getInstance().removeReservation(reservation);
             return true;
         } else {
             return false;

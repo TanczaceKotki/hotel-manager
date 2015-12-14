@@ -162,7 +162,12 @@ public class Hotel {
     }
 
     public ArrayList<Room> findRooms(Interval availableIn, int seats, float maxPrice, Room.RoomStandard standard) {
-        ArrayList<Room> available = availableRooms(availableIn);
+        ArrayList<Room> available;
+        if(availableIn != null) {
+            available = availableRooms(availableIn);
+        } else {
+            available = rooms;
+        }
         ArrayList<Room> found = new ArrayList<>();
 
 

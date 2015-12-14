@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Discounts {
+public class DiscountsTest {
 
     Hotel hotel;
     Room room;
@@ -179,6 +179,7 @@ public class Discounts {
         assertEquals(reservation.calculatePrice(), reservation.getSeats() * room.getBasePricePerDay() * (100 - person.getDiscount()) / 100, 0.01);
 
         room.cancelReservation(reservation);
+        room.cancelReservation(reservation);
 
     }
 
@@ -211,6 +212,7 @@ public class Discounts {
         expectedPrice *= (100.0-oneMonth.getPercentage()) / 100.0;
         expectedPrice *= (100.0-person.getDiscount()) / 100.0;
         assertEquals(reservation.calculatePrice(), expectedPrice, 0.01);
+        room.cancelReservation(reservation);
 
     }
 

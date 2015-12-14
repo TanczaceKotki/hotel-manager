@@ -155,13 +155,30 @@ class SearchRooms extends RoomCommand {
                 standard = null;
             }
 
-            Date availableFrom = queryDate("Available from:");
-            Date availableTo = queryDate("Available to:");
+            Date availableFrom;
+            Date availableTo;
+
+            try {
+                availableFrom = queryDate("Available from:");
+                availableTo = queryDate("Available to:");
+
+            } catch(NoValueException e) {
+                availableFrom = null;
+                availableTo = null;
+            }
+
+
 
             //Wyszukiwanie
             System.out.println("\nSearch results:");
             Hotel hotel = Hotel.getInstance();
-            ArrayList<Room> rooms = hotel.findRooms(new Interval(availableFrom, availableTo), minSeats, maxPrice, standard);
+            Interval searchInterval;
+            if(availableFrom == null || availableTo == null) {
+                searchInterval = null;
+            } else {
+                searchInterval = new Interval(availableFrom, availableTo);
+            }
+            ArrayList<Room> rooms = hotel.findRooms(searchInterval, minSeats, maxPrice, standard);
             if(rooms.size() > 0) {
                 for (Room room : rooms) {
                     System.out.println("---------");
@@ -172,7 +189,7 @@ class SearchRooms extends RoomCommand {
                 System.out.println("No results found");
             }
 
-        } catch (NumberFormatException | DateFormatException | NoValueException | NoSuchOptionException e) {
+        } catch (NumberFormatException | DateFormatException | NoSuchOptionException e) {
             System.out.println(e.getMessage());
         }
 
