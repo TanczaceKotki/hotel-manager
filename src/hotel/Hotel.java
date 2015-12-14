@@ -158,7 +158,14 @@ public class Hotel {
     }
 
     public ArrayList<Room> availableRooms(Interval interval) {
-        return rooms.stream().filter(room -> room.isAvailable(interval)).collect(Collectors.toCollection(ArrayList::new));
+        //return rooms.stream().filter(room -> room.isAvailable(interval)).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Room> available = new ArrayList<Room>();
+        for(Room room : rooms) {
+            if (room.isAvailable(interval)) {
+                available.add(room);
+            }
+        }
+        return available;
     }
 
     public ArrayList<Room> findRooms(Interval availableIn, int seats, float maxPrice, Room.RoomStandard standard) {

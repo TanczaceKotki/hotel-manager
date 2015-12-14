@@ -28,8 +28,10 @@ public class Room {
 
     public boolean isAvailable(Interval interval) {
         for(Reservation reservation: Hotel.getInstance().reservations) {
-            if(reservation.getRoomId() == this.number & reservation.collides(interval)) {
-                return false;
+            if(reservation.room != null){
+                if(reservation.getRoomId() == this.number && reservation.collides(interval)) {
+                    return false;
+                }
             }
         }
         return true;

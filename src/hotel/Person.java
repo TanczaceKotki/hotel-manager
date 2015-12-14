@@ -1,6 +1,7 @@
 package hotel;
 
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Person {
@@ -13,7 +14,13 @@ public class Person {
     private int discount;
 
     static int generateId() {
-        return (int) (System.currentTimeMillis() / 1000L);
+        UUID idOne = UUID.randomUUID();
+        String str = ""+idOne;
+        int uid = str.hashCode();
+        String filterStr = ""+uid;
+        str = filterStr.replaceAll("-", "");
+        int id = Integer.parseInt(str);
+        return id;
     }
 
     public Person(int id, String firstname,
