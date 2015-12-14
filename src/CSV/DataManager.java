@@ -1,8 +1,6 @@
 package CSV;
 
-import hotel.Person;
-import hotel.Reservation;
-import hotel.Room;
+import hotel.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,9 +11,13 @@ public class DataManager {
     ClientData clientData = new ClientData();
     RoomData roomData = new RoomData();
     ReservationData reservationData;
+    EBDiscountsData ebDiscountData = new EBDiscountsData();
+    SDiscountData sDiscountData = new SDiscountData();
     public ArrayList<Room> rooms;
     public ArrayList<Person> clients;
     public ArrayList<Reservation> reservations;
+    public ArrayList<EarlyBookingDiscount> ebDiscounts;
+    public ArrayList<SeasonalDiscount> sDiscounts;
 
     public DataManager() {
         csv = new CSV();
@@ -47,6 +49,24 @@ public class DataManager {
         return reservations;
     }
 
+    public ArrayList<EarlyBookingDiscount> EBDiscountImport() {
+        ebDiscounts = new ArrayList<>();
+        File file = new File("src/data/eb_discount.csv");
+        try {
+            ebDiscounts = csv.importData(file, ebDiscountData);
+        } catch (IOException e) {}
+        return ebDiscounts;
+    }
+
+    public ArrayList<SeasonalDiscount> SDiscountImport() {
+        sDiscounts = new ArrayList<>();
+        File file = new File("src/data/s_discount.csv");
+        try {
+            sDiscounts = csv.importData(file, sDiscountData);
+        } catch (IOException e) {}
+        return sDiscounts;
+    }
+
     public void roomExport(ArrayList<Room> roomArrayList) {
         File file = new File("src/data/rooms.csv");
         try {
@@ -70,6 +90,18 @@ public class DataManager {
         reservationData = new ReservationData(roomArrayList, personArrayList);
         try {
             csv.exportData(reservationArrayList, file, reservationData);
+        } catch (IOException e) {}
+    }
+    public void ebDiscountExport(ArrayList<EarlyBookingDiscount> ebDiscountArrayList) {
+        File file = new File("src/data/eb_discounts.csv");
+        try {
+            csv.exportData(ebDiscountArrayList, file, ebDiscountData);
+        } catch (IOException e) {}
+    }
+    public void sDiscountExport(ArrayList<SeasonalDiscount> sDiscountArrayList) {
+        File file = new File("src/data/s_discounts.csv");
+        try {
+            csv.exportData(sDiscountArrayList, file, sDiscountData);
         } catch (IOException e) {}
     }
 

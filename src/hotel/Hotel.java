@@ -287,12 +287,16 @@ public class Hotel {
         rooms = dataManager.roomImport();
         clients = dataManager.personImport();
         reservations = dataManager.reservationImport(rooms, clients);
+        seasonalDiscounts = dataManager.SDiscountImport();
+        earlyBookingDiscounts = dataManager.EBDiscountImport();
     }
 
     public void exportAllData() {
         dataManager.roomExport(rooms);
         dataManager.personExport(clients);
         dataManager.reservationExport(reservations, rooms, clients);
+        dataManager.sDiscountExport(seasonalDiscounts);
+        dataManager.ebDiscountExport(earlyBookingDiscounts);
     }
 
 }
