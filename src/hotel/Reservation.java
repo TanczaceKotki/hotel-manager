@@ -33,6 +33,7 @@ public class Reservation extends Interval {
         alreadyPaid = 0.0f;
         this.seats = seats;
 
+
     }
 
     public boolean changeDates(Date b, Date e) {
@@ -124,8 +125,8 @@ public class Reservation extends Interval {
 
                 discountTo.setTime(originalBeginDate);
                 discountTo.add(Calendar.MONTH, -earlyBookingDiscount.getMonths());
-
                 if (comparator.compare(creation, discountTo) <= 0) {
+
                     if (earlyBookingDiscount.getPercentage() > ebDiscountValue)
                         ebDiscountValue = earlyBookingDiscount.getPercentage();
                 }
@@ -143,6 +144,9 @@ public class Reservation extends Interval {
 
     public void pay(float amount) {
         alreadyPaid += amount;
+        if(person != null)
+            person.updateDiscount();
+
     }
 
     public float leftToPay() {

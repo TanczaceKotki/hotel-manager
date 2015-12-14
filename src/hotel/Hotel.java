@@ -19,6 +19,16 @@ public class Hotel {
     private DataManager dataManager;
     private ArrayList<Room> rooms;
     private ArrayList<Person> clients;
+    private int regClientDiscount = 10;
+    private int regClientThreshold  = 20;
+
+    public int getCustomerDiscount() {
+        return regClientDiscount;
+    }
+    public int getCustomerDiscountThreshold() {
+        return regClientThreshold;
+    }
+
     // User interface
     private ConsoleInterface userInterface;
 
@@ -51,13 +61,13 @@ public class Hotel {
 
         Hotel hotel = Hotel.getInstance();
 
-//        //Mo�na wykorzysta� ten kod jako testowy
+//        //Mo?na wykorzysta? ten kod jako testowy
 //        //Docelowo zapisywane do CSV ----------------------------------------------------------
 //        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(1, 5));
 //        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(3, 10));
 //        hotel.earlyBookingDiscounts.add(new EarlyBookingDiscount(6, 15));
 //
-//        //Zni�ka na Listopad
+//        //Zni?ka na Listopad
 //        Calendar cal = Calendar.getInstance();
 //        cal.set(2015, 10, 1);
 //        Date discountBegin = cal.getTime();

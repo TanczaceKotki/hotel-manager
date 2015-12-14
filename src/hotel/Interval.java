@@ -28,6 +28,9 @@ public class Interval {
         end = e;
         from.setTime(begin);
         to.setTime(end);
+        if(comparator.compare(from, to) > 0) {
+            setDates(begin, begin);
+        }
     }
 
     public Date getBegin() {

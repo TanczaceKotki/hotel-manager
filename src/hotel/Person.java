@@ -1,5 +1,8 @@
 package hotel;
 
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
 public class Person {
 
     private int id;
@@ -17,6 +20,28 @@ public class Person {
                   String surname) {
         setValues(id, firstname, surname, "", "");
     }
+
+    void updateDiscount() {
+        if(discount != 0) {
+            discount = Hotel.getInstance().getCustomerDiscount();
+        } else {
+            Hotel hotel = Hotel.getInstance();
+            ArrayList<Reservation> reservations = hotel.findReservations(-1, 0, null, id, null);
+            int days = 0;
+            for(Reservation r : reservations) {
+                if(r.alreadyPaid > 0.0f) {
+                    long diff = (r.end.getTime() - r.begin.getTime());
+                    days += TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                }
+            }
+            if(days >= hotel.getCustomerDiscountThreshold()) {
+                discount = hotel.getCustomerDiscount();
+            }
+
+        }
+
+    }
+
 
     public Person(int id, String firstname,
                   String surname, String telephone) {
